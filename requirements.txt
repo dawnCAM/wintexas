@@ -1,0 +1,7 @@
+fastapi[standard]
+psycopg2-binary
+python-dotenv
+rapidfuzz
+twilio
+sendgrid
+uvicorn
