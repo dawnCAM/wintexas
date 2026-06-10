@@ -1,0 +1,144 @@
+<style>
+.btn-primary { background: #1a4fa0; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 14px 28px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
+.btn-primary:hover { background: #163d80; }
+.btn-secondary { background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 10px 20px; font-size: 14px; cursor: pointer; transition: background .15s; }
+.btn-secondary:hover { background: var(--color-background-secondary); }
+.counter-num { font-size: 42px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.voter-card { background: var(--color-background-primary); border: 2px solid #1a4fa0; border-radius: var(--border-radius-lg); padding: 16px 20px; cursor: pointer; transition: background .15s; margin-bottom: 8px; }
+.voter-card:hover { background: #eef3fb; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
+.field-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.field-hint { font-size: 11px; color: var(--color-text-secondary); margin-top: 6px; font-style: italic; }
+</style>
+
+<div style="max-width: 480px; margin: 0 auto; padding: 1rem 0;">
+
+  <!-- Counter banner -->
+  <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: var(--border-radius-lg); padding: 16px 20px; text-align: center; margin-bottom: 20px;">
+    <div style="font-size: 13px; color: #1a4fa0; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Texans committed to vote Blue</div>
+    <div class="counter-num" id="counter">2,311,874</div>
+    <div style="font-size: 12px; color: #2d60b8; margin-top: 4px;">↑ growing right now</div>
+  </div>
+
+  <!-- Personal stats -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; text-align: center;">
+      <div style="font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">You've added</div>
+      <div style="font-size: 28px; font-weight: 500; color: var(--color-text-primary);" id="my-count">7</div>
+    </div>
+    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; text-align: center;">
+      <div style="font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Your network</div>
+      <div style="font-size: 28px; font-weight: 500; color: var(--color-text-primary);">31</div>
+    </div>
+  </div>
+
+  <!-- Entry form -->
+  <div id="entry-form">
+    <div style="font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 14px;">Add a committed voter</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+      <div>
+        <div class="field-label">First name <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="fname" placeholder="Maria" style="width:100%; font-size:15px; box-sizing:border-box;" />
+      </div>
+      <div>
+        <div class="field-label">Last name <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="lname" placeholder="Gonzalez" style="width:100%; font-size:15px; box-sizing:border-box;" />
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+      <div>
+        <div class="field-label">Street name <span style="color:#888; font-weight:400;">(optional)</span></div>
+        <input type="text" id="street" placeholder="Oak Street" style="width:100%; font-size:15px; box-sizing:border-box;" />
+      </div>
+      <div>
+        <div class="field-label">City <span style="color:#888; font-weight:400;">(optional)</span></div>
+        <input type="text" id="city" placeholder="Austin" style="width:100%; font-size:15px; box-sizing:border-box;" />
+      </div>
+    </div>
+    <div class="field-hint" style="margin-bottom: 14px;">Adding street or city helps find the right person when names are common</div>
+
+    <button class="btn-primary" onclick="doLookup()">Look them up →</button>
+  </div>
+
+  <!-- Lookup results -->
+  <div id="result-area" style="display:none; margin-top: 20px;">
+    <div style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 10px;" id="result-label">Is this the person you talked to?</div>
+
+    <div class="voter-card" onclick="confirmVoter('Maria Gonzalez', 'Austin', '412 Oak Street')">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div style="font-weight: 500; font-size: 15px; margin-bottom: 2px;">Maria Gonzalez</div>
+          <div style="font-size: 13px; color: var(--color-text-secondary);">412 Oak Street, Austin</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: 1px;">Travis County</div>
+        </div>
+        <span class="tag" style="background: #eef3fb; color: #1a4fa0;">Dem</span>
+      </div>
+    </div>
+
+    <div class="voter-card" onclick="confirmVoter('Maria Gonzalez', 'Houston', '88 Oak Lane')">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <div style="font-weight: 500; font-size: 15px; margin-bottom: 2px;">Maria Gonzalez</div>
+          <div style="font-size: 13px; color: var(--color-text-secondary);">88 Oak Lane, Houston</div>
+          <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: 1px;">Harris County</div>
+        </div>
+        <span class="tag" style="background: #f5f5f0; color: var(--color-text-secondary);">Ind</span>
+      </div>
+    </div>
+
+    <button class="btn-secondary" style="width:100%; margin-top: 4px; font-size: 13px;" onclick="resetForm()">None of these — try again</button>
+  </div>
+
+  <!-- Success -->
+  <div id="success-area" style="display:none; background: #eef3fb; border: 1px solid #a3bde8; border-radius: var(--border-radius-lg); padding: 20px; text-align: center; margin-top: 4px;">
+    <div style="font-size: 32px; margin-bottom: 8px;">🎉</div>
+    <div style="font-weight: 500; font-size: 16px; color: #1a4fa0; margin-bottom: 4px;" id="success-name"></div>
+    <div style="font-size: 13px; color: #2d60b8; margin-bottom: 4px;" id="success-addr"></div>
+    <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 16px;">is now committed! The count just went up.</div>
+    <button class="btn-primary" onclick="addAnother()">Add another voter</button>
+  </div>
+
+</div>
+
+<script>
+function doLookup() {
+  const f = document.getElementById('fname').value.trim();
+  const l = document.getElementById('lname').value.trim();
+  if (!f || !l) {
+    document.getElementById('fname').style.borderColor = f ? '' : '#c0392b';
+    document.getElementById('lname').style.borderColor = l ? '' : '#c0392b';
+    return;
+  }
+  document.getElementById('fname').style.borderColor = '';
+  document.getElementById('lname').style.borderColor = '';
+  const street = document.getElementById('street').value.trim();
+  const city = document.getElementById('city').value.trim();
+  document.getElementById('result-label').textContent = (street || city)
+    ? "Here's who we found — is this them?"
+    : "We found a few matches — tap the right one:";
+  document.getElementById('entry-form').style.display = 'none';
+  document.getElementById('result-area').style.display = 'block';
+}
+function confirmVoter(name, city, addr) {
+  const newCount = parseInt(document.getElementById('counter').textContent.replace(/,/g,'')) + 1;
+  document.getElementById('counter').textContent = newCount.toLocaleString();
+  const myCount = parseInt(document.getElementById('my-count').textContent) + 1;
+  document.getElementById('my-count').textContent = myCount;
+  document.getElementById('success-name').textContent = name;
+  document.getElementById('success-addr').textContent = addr + ', ' + city;
+  document.getElementById('result-area').style.display = 'none';
+  document.getElementById('success-area').style.display = 'block';
+}
+function resetForm() {
+  document.getElementById('result-area').style.display = 'none';
+  document.getElementById('entry-form').style.display = 'block';
+}
+function addAnother() {
+  document.getElementById('success-area').style.display = 'none';
+  document.getElementById('entry-form').style.display = 'block';
+  ['fname','lname','street','city'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fname').focus();
+}
+</script>
