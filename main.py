@@ -190,7 +190,7 @@ def send_magic_link(contact: str, token: str):
                 from sendgrid.helpers.mail import Mail
                 sg = sendgrid.SendGridAPIClient(sendgrid_key)
                 message = Mail(
-                    from_email="noreply@wintexas.us",
+                    from_email=os.getenv("SENDGRID_FROM", "noreply@wintexas.us"),
                     to_emails=contact,
                     subject="Your WinTexas login link",
                     html_content=f"""
