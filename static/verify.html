@@ -112,7 +112,7 @@ input:focus { outline: none; border-color: #1a4fa0; }
   </div>
 </div>
 
-<!-- SCREEN 5: Confirmed -->
+<!-- SCREEN 5: Verified -->
 <div id="s5" class="screen">
   <div style="text-align: center; padding: 24px 0;">
     <div style="font-size: 48px; margin-bottom: 12px;">🇺🇸</div>
@@ -123,7 +123,41 @@ input:focus { outline: none; border-color: #1a4fa0; }
       <div style="font-size: 40px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px;" id="verified-count">...</div>
       <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;">↑ you just joined this count</div>
     </div>
-    <button class="btn-primary" onclick="window.location.href='/recruiter'">Start adding committed voters →</button>
+    <button class="btn-primary" onclick="showScreen('s_legal')">Continue →</button>
+  </div>
+</div>
+
+<!-- SCREEN: Legal acknowledgment -->
+<div id="s_legal" class="screen">
+  <div style="padding: 8px 0 24px;">
+    <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; text-align: center;">Please Read Before Continuing</div>
+    <div style="font-size: 18px; font-weight: 500; margin-bottom: 12px;">Important Legal Notice</div>
+    <div style="background: #f8f8f6; border-left: 3px solid #c8102e; border-radius: 0 8px 8px 0; padding: 14px 16px; margin-bottom: 20px;">
+      <div style="font-size: 12px; font-weight: 600; color: #c8102e; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;">Texas Election Code § 18.067</div>
+      <div style="font-size: 12px; color: #444; line-height: 1.7; font-style: italic;">"A person commits an offense if the person uses information in connection with advertising or promoting commercial products or services that the person knows was obtained under Section 18.066. An offense under this section is a Class A misdemeanor."</div>
+    </div>
+    <div style="font-size: 14px; font-weight: 500; margin-bottom: 10px;">What this means in plain English:</div>
+    <div style="margin-bottom: 20px;">
+      <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
+        <div style="color: #1a4fa0; font-size: 16px; flex-shrink:0;">✓</div>
+        <div style="font-size: 13px; color: #444; line-height: 1.5;">Using voter information to contact people for <strong>civic, political, or GOTV purposes</strong> is allowed</div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
+        <div style="color: #c8102e; font-size: 16px; flex-shrink:0;">✗</div>
+        <div style="font-size: 13px; color: #444; line-height: 1.5;">Using voter information to <strong>advertise or sell commercial products or services</strong> is a Class A misdemeanor</div>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <div style="color: #c8102e; font-size: 16px; flex-shrink:0;">✗</div>
+        <div style="font-size: 13px; color: #444; line-height: 1.5;"><strong>Sharing or selling</strong> voter data with businesses or third parties is not allowed</div>
+      </div>
+    </div>
+    <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;">
+      <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
+        <input type="checkbox" id="legal-check" style="width:18px; height:18px; margin-top:2px; flex-shrink:0; cursor:pointer;" onchange="toggleLegalBtn()"/>
+        <span style="font-size: 13px; color: #1a1a18; line-height: 1.6;">I have read and understand the above legal notice. I agree to use WinTexas only for lawful civic and political get-out-the-vote purposes, and will not use voter information for commercial purposes.</span>
+      </label>
+    </div>
+    <button class="btn-primary" id="legal-btn" onclick="window.location.href='/recruiter'" disabled style="opacity:0.4; cursor:not-allowed;">I Agree — Start Adding Committed Voters →</button>
   </div>
 </div>
 
@@ -247,6 +281,14 @@ async function doVerify() {
     btn.textContent = 'Find me in the voter file →';
     btn.disabled = false;
   }
+}
+
+function toggleLegalBtn() {
+  const btn = document.getElementById('legal-btn');
+  const checked = document.getElementById('legal-check').checked;
+  btn.disabled = !checked;
+  btn.style.opacity = checked ? '1' : '0.4';
+  btn.style.cursor = checked ? 'pointer' : 'not-allowed';
 }
 
 async function confirmVoter(voterId, name) {
