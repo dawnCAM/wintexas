@@ -1,50 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinTexas.US</title>
 <style>
-.btn-big { background: #1a4fa0; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 16px 28px; font-size: 17px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
+.btn-big { background: #1a4fa0; color: #fff; border: none; border-radius: 8px; padding: 16px 28px; font-size: 17px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; margin-top: 0; }
 .btn-big:hover { background: #163d80; }
-.btn-ghost { background: transparent; color: #1a4fa0; border: 1.5px solid #1a4fa0; border-radius: var(--border-radius-md); padding: 13px 28px; font-size: 15px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; margin-top: 10px; }
+.btn-ghost { background: transparent; color: #1a4fa0; border: 1.5px solid #1a4fa0; border-radius: 8px; padding: 13px 28px; font-size: 15px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; margin-top: 10px; }
 .btn-ghost:hover { background: #eef3fb; }
 .step-num { width: 28px; height: 28px; border-radius: 50%; background: #1a4fa0; color: #fff; font-size: 13px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .screen { display: none; }
 .screen.active { display: block; }
-.magic-input { font-size: 16px; width: 100%; box-sizing: border-box; }
+input { border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; width: 100%; font-size: 16px; }
+input:focus { outline: none; border-color: #1a4fa0; }
+.error-msg { color: #c0392b; font-size: 12px; margin-top: 6px; display: none; }
 </style>
-
+</head>
+<body>
 <div style="max-width: 440px; margin: 0 auto; padding: 1rem 0;">
 
 <!-- SCREEN 1: Hook -->
 <div id="s1" class="screen active">
   <div style="text-align: center; padding: 8px 0 20px;">
     <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">WinTexas.US</div>
-    <div style="font-size: 28px; font-weight: 500; color: var(--color-text-primary); line-height: 1.25; margin-bottom: 12px;">Texas can go Blue<br>in November.</div>
-    <div style="font-size: 15px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 20px;">It starts with you — and 3 people you know.</div>
+    <div style="font-size: 28px; font-weight: 500; line-height: 1.25; margin-bottom: 12px;">Texas can go Blue<br>in November.</div>
+    <div style="font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 20px;">It starts with you — and 3 people you know.</div>
 
-    <!-- Live counter -->
-    <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: var(--border-radius-lg); padding: 18px 20px; margin-bottom: 24px;">
+    <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;">
       <div style="font-size: 12px; color: #1a4fa0; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">Texans already committed</div>
-      <div style="font-size: 44px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px; font-variant-numeric: tabular-nums;" id="big-count">2,311,874</div>
+      <div style="font-size: 44px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px; font-variant-numeric: tabular-nums;" id="big-count">Loading...</div>
       <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;">↑ more joining every hour</div>
     </div>
 
-    <!-- How it works -->
     <div style="text-align: left; margin-bottom: 24px;">
-      <div style="font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Here's how it works</div>
+      <div style="font-size: 13px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Here's how it works</div>
       <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
         <div class="step-num">1</div>
-        <div style="font-size: 14px; color: var(--color-text-primary); line-height: 1.5; padding-top: 4px;">Sign up in 30 seconds — we verify you're a registered Texas voter</div>
+        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;">Sign up in 30 seconds — we verify you're a registered Texas voter</div>
       </div>
       <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
         <div class="step-num">2</div>
-        <div style="font-size: 14px; color: var(--color-text-primary); line-height: 1.5; padding-top: 4px;">Talk to people you know. Get them to commit to vote the Blue Ballot on Nov. 3</div>
+        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;">Talk to people you know. Get them to commit to vote the Blue Ballot on Nov. 3</div>
       </div>
       <div style="display: flex; gap: 12px; align-items: flex-start;">
         <div class="step-num">3</div>
-        <div style="font-size: 14px; color: var(--color-text-primary); line-height: 1.5; padding-top: 4px;">Enter their names here. Watch the count grow. They do the same with their people</div>
+        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;">Enter their names here. Watch the count grow. They do the same with their people</div>
       </div>
     </div>
 
-    <!-- Viral math -->
-    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; margin-bottom: 24px; text-align: left;">
-      <div style="font-size: 13px; color: var(--color-text-secondary); line-height: 1.6;">If every person reaches just <strong style="color: var(--color-text-primary);">3 people</strong>, and those 3 reach 3 more — <strong style="color: #1a4fa0;">10 levels deep adds 88,000 voters.</strong> You are level one.</div>
+    <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; text-align: left;">
+      <div style="font-size: 13px; color: #666; line-height: 1.6;">If every person reaches just <strong style="color: #1a1a18;">3 people</strong>, and those 3 reach 3 more — <strong style="color: #1a4fa0;">10 levels deep adds 88,000 voters.</strong> You are level one.</div>
     </div>
 
     <button class="btn-big" onclick="showScreen('s2')">I'm in — sign me up →</button>
@@ -55,18 +63,19 @@
 <!-- SCREEN 2: Magic link -->
 <div id="s2" class="screen">
   <div style="margin-bottom: 20px;">
-    <button onclick="showScreen('s1')" style="background:none; border:none; color: var(--color-text-secondary); font-size: 13px; cursor:pointer; padding: 0; margin-bottom: 16px;">← Back</button>
-    <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px;">Let's get you set up</div>
-    <div style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 20px;">We'll send you a magic link — no password needed. Tap it and you're in.</div>
+    <button onclick="showScreen('s1')" style="background:none; border:none; color: #888; font-size: 13px; cursor:pointer; padding: 0; margin-bottom: 16px;">← Back</button>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 8px;">Let's get you set up</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">We'll send you a magic link — no password needed. Tap it and you're in.</div>
 
     <div style="margin-bottom: 10px;">
-      <div style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: 5px;">Your mobile number or email</div>
-      <input class="magic-input" type="text" id="contact-input" placeholder="Phone number or email address" />
+      <div style="font-size: 12px; color: #888; margin-bottom: 5px;">Your mobile number or email</div>
+      <input type="text" id="contact-input" placeholder="Phone number or email address" />
+      <div class="error-msg" id="contact-error">Please enter a phone number or email address</div>
     </div>
-    <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 20px; line-height: 1.6;">We'll use this to send your link and to verify you're a registered Texas voter. We never share your info.</div>
+    <div style="font-size: 11px; color: #888; margin-bottom: 20px; line-height: 1.6;">We'll use this to send your link and to verify you're a registered Texas voter. We never share your info.</div>
 
-    <button class="btn-big" onclick="showScreen('s3')">Send my link →</button>
-    <div style="text-align: center; margin-top: 14px; font-size: 12px; color: var(--color-text-secondary);">Already have a link? Check your texts or email.</div>
+    <button class="btn-big" id="send-btn" onclick="sendMagicLink()">Send my link →</button>
+    <div style="text-align: center; margin-top: 14px; font-size: 12px; color: #888;">Already have a link? Check your texts or email.</div>
   </div>
 </div>
 
@@ -74,16 +83,16 @@
 <div id="s3" class="screen">
   <div style="text-align: center; padding: 24px 0;">
     <div style="font-size: 40px; margin-bottom: 16px;">📲</div>
-    <div style="font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px;">Check your phone</div>
-    <div style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 28px;">We just sent you a link. Tap it to verify your identity and start adding committed voters.</div>
-
-    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; margin-bottom: 24px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; text-align: left;">
-      <strong style="color: var(--color-text-primary);">What happens next:</strong><br>
+    <div style="font-size: 20px; font-weight: 500; margin-bottom: 10px;">Check your phone</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px;">We just sent you a link. Tap it to verify your identity and start adding committed voters.</div>
+    <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; font-size: 13px; color: #666; line-height: 1.6; text-align: left;">
+      <strong>What happens next:</strong><br>
       Tap the link → we match you to the voter file → you're ready to add committed voters.
     </div>
-
-    <div style="font-size: 13px; color: var(--color-text-secondary);">Didn't get it? <span style="color: #1a4fa0; cursor: pointer; text-decoration: underline;" onclick="showScreen('s2')">Try again</span></div>
+    <div style="font-size: 13px; color: #666;">Didn't get it? <span style="color: #1a4fa0; cursor: pointer; text-decoration: underline;" onclick="showScreen('s2')">Try again</span></div>
   </div>
+</div>
+
 </div>
 
 <script>
@@ -91,12 +100,60 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-let count = 2311874;
-setInterval(() => {
-  if (Math.random() > 0.6) {
-    count += Math.floor(Math.random() * 3) + 1;
+
+// Load real counter from API
+async function loadCount() {
+  try {
+    const res = await fetch('/stats/count');
+    const data = await res.json();
     const el = document.getElementById('big-count');
-    if (el) el.textContent = count.toLocaleString();
+    if (el) el.textContent = data.total.toLocaleString();
+  } catch (e) {
+    const el = document.getElementById('big-count');
+    if (el) el.textContent = '213,625';
   }
-}, 4000);
+}
+
+// Send magic link via real API
+async function sendMagicLink() {
+  const contact = document.getElementById('contact-input').value.trim();
+  const errorEl = document.getElementById('contact-error');
+  const btn = document.getElementById('send-btn');
+
+  if (!contact) {
+    errorEl.style.display = 'block';
+    return;
+  }
+  errorEl.style.display = 'none';
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/auth/request-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contact })
+    });
+
+    if (res.ok) {
+      showScreen('s3');
+    } else {
+      const data = await res.json();
+      errorEl.textContent = data.detail || 'Something went wrong. Please try again.';
+      errorEl.style.display = 'block';
+    }
+  } catch (e) {
+    errorEl.textContent = 'Connection error. Please try again.';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'Send my link →';
+    btn.disabled = false;
+  }
+}
+
+// Load count on page load and poll every 30s
+loadCount();
+setInterval(loadCount, 30000);
 </script>
+</body>
+</html>

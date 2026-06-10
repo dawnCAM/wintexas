@@ -1,111 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinTexas — Recruiter</title>
 <style>
-.btn-primary { background: #1a4fa0; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 14px 28px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
+.btn-primary { background: #1a4fa0; color: #fff; border: none; border-radius: 8px; padding: 14px 28px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
 .btn-primary:hover { background: #163d80; }
-.btn-secondary { background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 10px 20px; font-size: 14px; cursor: pointer; transition: background .15s; }
-.btn-secondary:hover { background: var(--color-background-secondary); }
+.btn-secondary { background: transparent; color: #666; border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 20px; font-size: 14px; cursor: pointer; transition: background .15s; }
+.btn-secondary:hover { background: #f0f0ec; }
 .counter-num { font-size: 42px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
-.voter-card { background: var(--color-background-primary); border: 2px solid #1a4fa0; border-radius: var(--border-radius-lg); padding: 16px 20px; cursor: pointer; transition: background .15s; margin-bottom: 8px; }
+.voter-card { background: #fff; border: 2px solid #1a4fa0; border-radius: 12px; padding: 16px 20px; cursor: pointer; transition: background .15s; margin-bottom: 8px; }
 .voter-card:hover { background: #eef3fb; }
+.voter-card.already-committed { border-color: #ccc; opacity: 0.6; cursor: default; }
 .tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
-.field-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
-.field-hint { font-size: 11px; color: var(--color-text-secondary); margin-top: 6px; font-style: italic; }
+.field-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+input { border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; width: 100%; font-size: 15px; }
+input:focus { outline: none; border-color: #1a4fa0; }
 </style>
-
+</head>
+<body>
 <div style="max-width: 480px; margin: 0 auto; padding: 1rem 0;">
 
   <!-- Counter banner -->
-  <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: var(--border-radius-lg); padding: 16px 20px; text-align: center; margin-bottom: 20px;">
+  <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 16px 20px; text-align: center; margin-bottom: 20px;">
     <div style="font-size: 13px; color: #1a4fa0; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Texans committed to vote Blue</div>
-    <div class="counter-num" id="counter">2,311,874</div>
+    <div class="counter-num" id="counter">Loading...</div>
     <div style="font-size: 12px; color: #2d60b8; margin-top: 4px;">↑ growing right now</div>
   </div>
 
   <!-- Personal stats -->
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
-    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; text-align: center;">
-      <div style="font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">You've added</div>
-      <div style="font-size: 28px; font-weight: 500; color: var(--color-text-primary);" id="my-count">7</div>
+    <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; text-align: center;">
+      <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">You've added</div>
+      <div style="font-size: 28px; font-weight: 500;" id="my-count">—</div>
     </div>
-    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; text-align: center;">
-      <div style="font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Your network</div>
-      <div style="font-size: 28px; font-weight: 500; color: var(--color-text-primary);">31</div>
+    <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; text-align: center;">
+      <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Your network</div>
+      <div style="font-size: 28px; font-weight: 500;" id="network-count">—</div>
     </div>
   </div>
 
   <!-- Entry form -->
   <div id="entry-form">
-    <div style="font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 14px;">Add a committed voter</div>
+    <div style="font-size: 15px; font-weight: 500; margin-bottom: 14px;">Add a committed voter</div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
       <div>
         <div class="field-label">First name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="fname" placeholder="Maria" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <input type="text" id="fname" placeholder="Maria" />
       </div>
       <div>
         <div class="field-label">Last name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="lname" placeholder="Gonzalez" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <input type="text" id="lname" placeholder="Gonzalez" />
       </div>
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <div>
-        <div class="field-label">Street name <span style="color:#888; font-weight:400;">(optional)</span></div>
-        <input type="text" id="street" placeholder="Oak Street" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <div class="field-label">Street name <span style="color:#888;font-weight:400;">(optional)</span></div>
+        <input type="text" id="street" placeholder="Oak Street" />
       </div>
       <div>
-        <div class="field-label">City <span style="color:#888; font-weight:400;">(optional)</span></div>
-        <input type="text" id="city" placeholder="Austin" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <div class="field-label">City <span style="color:#888;font-weight:400;">(optional)</span></div>
+        <input type="text" id="city" placeholder="Austin" />
       </div>
     </div>
-    <div class="field-hint" style="margin-bottom: 14px;">Adding street or city helps find the right person when names are common</div>
-
-    <button class="btn-primary" onclick="doLookup()">Look them up →</button>
+    <div style="font-size: 11px; color: #888; margin-top: 6px; margin-bottom: 14px; font-style: italic;">Adding street or city helps find the right person when names are common</div>
+    <div style="color: #c0392b; font-size: 13px; margin-bottom: 10px; display:none;" id="lookup-error"></div>
+    <button class="btn-primary" id="lookup-btn" onclick="doLookup()">Look them up →</button>
   </div>
 
   <!-- Lookup results -->
   <div id="result-area" style="display:none; margin-top: 20px;">
-    <div style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 10px;" id="result-label">Is this the person you talked to?</div>
-
-    <div class="voter-card" onclick="confirmVoter('Maria Gonzalez', 'Austin', '412 Oak Street')">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <div>
-          <div style="font-weight: 500; font-size: 15px; margin-bottom: 2px;">Maria Gonzalez</div>
-          <div style="font-size: 13px; color: var(--color-text-secondary);">412 Oak Street, Austin</div>
-          <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: 1px;">Travis County</div>
-        </div>
-        <span class="tag" style="background: #eef3fb; color: #1a4fa0;">Dem</span>
-      </div>
-    </div>
-
-    <div class="voter-card" onclick="confirmVoter('Maria Gonzalez', 'Houston', '88 Oak Lane')">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <div>
-          <div style="font-weight: 500; font-size: 15px; margin-bottom: 2px;">Maria Gonzalez</div>
-          <div style="font-size: 13px; color: var(--color-text-secondary);">88 Oak Lane, Houston</div>
-          <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: 1px;">Harris County</div>
-        </div>
-        <span class="tag" style="background: #f5f5f0; color: var(--color-text-secondary);">Ind</span>
-      </div>
-    </div>
-
+    <div style="font-size: 14px; color: #888; margin-bottom: 10px;" id="result-label">Is this the person you talked to?</div>
+    <div id="result-cards"></div>
     <button class="btn-secondary" style="width:100%; margin-top: 4px; font-size: 13px;" onclick="resetForm()">None of these — try again</button>
   </div>
 
   <!-- Success -->
-  <div id="success-area" style="display:none; background: #eef3fb; border: 1px solid #a3bde8; border-radius: var(--border-radius-lg); padding: 20px; text-align: center; margin-top: 4px;">
+  <div id="success-area" style="display:none; background: #eef3fb; border: 1px solid #a3bde8; border-radius: 12px; padding: 20px; text-align: center; margin-top: 4px;">
     <div style="font-size: 32px; margin-bottom: 8px;">🎉</div>
     <div style="font-weight: 500; font-size: 16px; color: #1a4fa0; margin-bottom: 4px;" id="success-name"></div>
     <div style="font-size: 13px; color: #2d60b8; margin-bottom: 4px;" id="success-addr"></div>
-    <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 16px;">is now committed! The count just went up.</div>
+    <div style="font-size: 13px; color: #666; margin-bottom: 16px;">is now committed! The count just went up.</div>
+    <button class="btn-primary" onclick="addAnother()">Add another voter</button>
+  </div>
+
+  <!-- Already committed message -->
+  <div id="already-area" style="display:none; background: #f0f0ec; border: 1px solid #ccc; border-radius: 12px; padding: 20px; text-align: center; margin-top: 4px;">
+    <div style="font-size: 24px; margin-bottom: 8px;">✓</div>
+    <div style="font-weight: 500; font-size: 15px; margin-bottom: 4px;" id="already-name"></div>
+    <div style="font-size: 13px; color: #888; margin-bottom: 16px;">is already on the committed list — great news!</div>
     <button class="btn-primary" onclick="addAnother()">Add another voter</button>
   </div>
 
 </div>
 
 <script>
-function doLookup() {
+// Load counter and personal stats on page load
+async function loadStats() {
+  try {
+    const [countRes, meRes] = await Promise.all([
+      fetch('/stats/count'),
+      fetch('/stats/me')
+    ]);
+    const countData = await countRes.json();
+    document.getElementById('counter').textContent = countData.total.toLocaleString();
+
+    if (meRes.ok) {
+      const meData = await meRes.json();
+      document.getElementById('my-count').textContent = meData.voters_added.toLocaleString();
+      document.getElementById('network-count').textContent = meData.network_size.toLocaleString();
+    }
+  } catch (e) {
+    document.getElementById('counter').textContent = '213,625';
+  }
+}
+
+async function doLookup() {
   const f = document.getElementById('fname').value.trim();
   const l = document.getElementById('lname').value.trim();
+  const errorEl = document.getElementById('lookup-error');
+  const btn = document.getElementById('lookup-btn');
+
   if (!f || !l) {
     document.getElementById('fname').style.borderColor = f ? '' : '#c0392b';
     document.getElementById('lname').style.borderColor = l ? '' : '#c0392b';
@@ -113,32 +133,121 @@ function doLookup() {
   }
   document.getElementById('fname').style.borderColor = '';
   document.getElementById('lname').style.borderColor = '';
+  errorEl.style.display = 'none';
+
   const street = document.getElementById('street').value.trim();
   const city = document.getElementById('city').value.trim();
-  document.getElementById('result-label').textContent = (street || city)
-    ? "Here's who we found — is this them?"
-    : "We found a few matches — tap the right one:";
-  document.getElementById('entry-form').style.display = 'none';
-  document.getElementById('result-area').style.display = 'block';
+
+  btn.textContent = 'Searching...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/voters/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name: f, last_name: l, street_name: street, city: city })
+    });
+    const data = await res.json();
+
+    if (!data.results || data.results.length === 0) {
+      errorEl.textContent = 'No match found. Check the spelling or try adding a street name or city.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    // Build result cards
+    const container = document.getElementById('result-cards');
+    container.innerHTML = '';
+    data.results.forEach(voter => {
+      const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type]
+        .filter(Boolean).join(' ');
+      const partyColor = voter.party === 'DEM' ? '#eef3fb' : '#f5f5f0';
+      const partyText = voter.party === 'DEM' ? '#1a4fa0' : '#888';
+      const partyLabel = voter.party === 'DEM' ? 'Dem' : (voter.party || 'Other');
+      const card = document.createElement('div');
+      card.className = 'voter-card' + (voter.already_committed ? ' already-committed' : '');
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-weight:500;font-size:15px;margin-bottom:2px;">${voter.first_name} ${voter.last_name}</div>
+            <div style="font-size:13px;color:#888;">${addr}, ${voter.city}</div>
+            <div style="font-size:12px;color:#888;margin-top:1px;">${voter.zipcode || ''}</div>
+            ${voter.already_committed ? '<div style="font-size:11px;color:#888;margin-top:4px;">✓ Already committed</div>' : ''}
+          </div>
+          <span class="tag" style="background:${partyColor};color:${partyText};">${partyLabel}</span>
+        </div>`;
+      if (!voter.already_committed) {
+        card.onclick = () => addVoter(voter.voter_id, voter.first_name + ' ' + voter.last_name, addr + ', ' + voter.city);
+      }
+      container.appendChild(card);
+    });
+
+    document.getElementById('result-label').textContent = (street || city)
+      ? "Here's who we found — is this them?"
+      : "We found a few matches — tap the right one:";
+    document.getElementById('entry-form').style.display = 'none';
+    document.getElementById('result-area').style.display = 'block';
+
+  } catch (e) {
+    errorEl.textContent = 'Connection error. Please try again.';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'Look them up →';
+    btn.disabled = false;
+  }
 }
-function confirmVoter(name, city, addr) {
-  const newCount = parseInt(document.getElementById('counter').textContent.replace(/,/g,'')) + 1;
-  document.getElementById('counter').textContent = newCount.toLocaleString();
-  const myCount = parseInt(document.getElementById('my-count').textContent) + 1;
-  document.getElementById('my-count').textContent = myCount;
-  document.getElementById('success-name').textContent = name;
-  document.getElementById('success-addr').textContent = addr + ', ' + city;
-  document.getElementById('result-area').style.display = 'none';
-  document.getElementById('success-area').style.display = 'block';
+
+async function addVoter(voterId, name, addr) {
+  try {
+    const res = await fetch('/voters/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ voter_id: voterId })
+    });
+    const data = await res.json();
+
+    document.getElementById('result-area').style.display = 'none';
+
+    if (data.already_committed) {
+      document.getElementById('already-name').textContent = name;
+      document.getElementById('already-area').style.display = 'block';
+    } else {
+      // Update counter and personal count
+      document.getElementById('counter').textContent = data.total.toLocaleString();
+      const myCount = parseInt(document.getElementById('my-count').textContent.replace(/,/g,'')) + 1;
+      document.getElementById('my-count').textContent = myCount.toLocaleString();
+      document.getElementById('success-name').textContent = name;
+      document.getElementById('success-addr').textContent = addr;
+      document.getElementById('success-area').style.display = 'block';
+    }
+  } catch (e) {
+    document.getElementById('result-area').style.display = 'none';
+    document.getElementById('entry-form').style.display = 'block';
+  }
 }
+
 function resetForm() {
   document.getElementById('result-area').style.display = 'none';
   document.getElementById('entry-form').style.display = 'block';
 }
+
 function addAnother() {
   document.getElementById('success-area').style.display = 'none';
+  document.getElementById('already-area').style.display = 'none';
   document.getElementById('entry-form').style.display = 'block';
   ['fname','lname','street','city'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('fname').focus();
 }
+
+// Load stats on page load and poll counter every 30s
+loadStats();
+setInterval(async () => {
+  try {
+    const res = await fetch('/stats/count');
+    const data = await res.json();
+    document.getElementById('counter').textContent = data.total.toLocaleString();
+  } catch(e) {}
+}, 30000);
 </script>
+</body>
+</html>

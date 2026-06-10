@@ -1,38 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinTexas — Verify</title>
 <style>
-.btn-primary { background: #1a4fa0; color: #fff; border: none; border-radius: var(--border-radius-md); padding: 14px 28px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
+.btn-primary { background: #1a4fa0; color: #fff; border: none; border-radius: 8px; padding: 14px 28px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
 .btn-primary:hover { background: #163d80; }
-.btn-secondary { background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 12px 20px; font-size: 14px; cursor: pointer; width: 100%; transition: background .15s; margin-top: 10px; }
-.btn-secondary:hover { background: var(--color-background-secondary); }
+.btn-secondary { background: transparent; color: #666; border: 0.5px solid #ccc; border-radius: 8px; padding: 12px 20px; font-size: 14px; cursor: pointer; width: 100%; transition: background .15s; margin-top: 10px; }
+.btn-secondary:hover { background: #f0f0ec; }
 .screen { display: none; }
 .screen.active { display: block; }
-.field-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
-.tx-link { display: flex; align-items: center; gap: 10px; background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: var(--border-radius-md); padding: 13px 16px; text-decoration: none; transition: background .15s; }
+.field-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+input { border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; width: 100%; font-size: 15px; }
+input:focus { outline: none; border-color: #1a4fa0; }
+.tx-link { display: flex; align-items: center; gap: 10px; background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 8px; padding: 13px 16px; text-decoration: none; transition: background .15s; margin-bottom: 8px; }
 .tx-link:hover { background: #dce8f7; }
 .tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
 .resources-link { font-size: 12px; color: #1a4fa0; text-decoration: underline; cursor: pointer; text-align: center; display: block; margin-top: 14px; }
-.resources-link:hover { color: #163d80; }
+.voter-card { background: #fff; border: 2px solid #1a4fa0; border-radius: 12px; padding: 16px 20px; cursor: pointer; transition: background .15s; margin-bottom: 8px; }
+.voter-card:hover { background: #eef3fb; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
-
+</head>
+<body>
 <div style="max-width: 440px; margin: 0 auto; padding: 1rem 0;">
 
 <!-- SCREEN 1: Intro -->
 <div id="s1" class="screen active">
   <div style="text-align: center; padding: 8px 0 24px;">
     <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">WinTexas.US</div>
-    <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px;">Welcome — let's verify you're a registered Texas voter</div>
-    <div style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 28px;">We'll match your name and address to the official Texas voter file. Takes about 30 seconds.</div>
-    <div style="background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; margin-bottom: 28px; text-align: left;">
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 10px;">Welcome — let's verify you're a registered Texas voter</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px;">We'll match your name and address to the official Texas voter file. Takes about 30 seconds.</div>
+    <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; margin-bottom: 28px; text-align: left;">
       <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #1a4fa0; color: #fff; font-size: 11px; font-weight: 500; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">1</div>
-        <div style="font-size: 13px; color: var(--color-text-primary); line-height: 1.5;">Enter your name and address</div>
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a4fa0;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+        <div style="font-size: 13px; line-height: 1.5;">Enter your name and address</div>
       </div>
       <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #1a4fa0; color: #fff; font-size: 11px; font-weight: 500; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">2</div>
-        <div style="font-size: 13px; color: var(--color-text-primary); line-height: 1.5;">Confirm your match in the voter file</div>
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a4fa0;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+        <div style="font-size: 13px; line-height: 1.5;">Confirm your match in the voter file</div>
       </div>
       <div style="display: flex; gap: 10px; align-items: flex-start;">
-        <div style="width: 20px; height: 20px; border-radius: 50%; background: #1a4fa0; color: #fff; font-size: 11px; font-weight: 500; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">3</div>
-        <div style="font-size: 13px; color: var(--color-text-primary); line-height: 1.5;">You're in — start adding committed voters</div>
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a4fa0;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+        <div style="font-size: 13px; line-height: 1.5;">You're in — start adding committed voters</div>
       </div>
     </div>
     <button class="btn-primary" onclick="showScreen('s2')">Let's do it →</button>
@@ -42,34 +55,35 @@
 <!-- SCREEN 2: Enter your info -->
 <div id="s2" class="screen">
   <div style="margin-bottom: 4px;">
-    <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px;">Your information</div>
-    <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 20px; line-height: 1.5;">Enter your name and address as it appears on your voter registration.</div>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 6px;">Your information</div>
+    <div style="font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.5;">Enter your name and address as it appears on your voter registration.</div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
       <div>
         <div class="field-label">First name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="vfname" placeholder="Maria" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <input type="text" id="vfname" placeholder="Maria" />
       </div>
       <div>
         <div class="field-label">Last name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="vlname" placeholder="Gonzalez" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <input type="text" id="vlname" placeholder="Gonzalez" />
       </div>
     </div>
     <div style="margin-bottom: 10px;">
       <div class="field-label">Street address <span style="color:#c0392b;">*</span></div>
-      <input type="text" id="vstreet" placeholder="412 Oak Street" style="width:100%; font-size:15px; box-sizing:border-box;" />
+      <input type="text" id="vstreet" placeholder="412 Oak Street" />
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <div>
         <div class="field-label">City <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="vcity" placeholder="Austin" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <input type="text" id="vcity" placeholder="Austin" />
       </div>
       <div>
-        <div class="field-label">ZIP code <span style="color:#888; font-weight:400;">(optional)</span></div>
-        <input type="text" id="vzip" placeholder="78701" style="width:100%; font-size:15px; box-sizing:border-box;" />
+        <div class="field-label">ZIP <span style="color:#888;font-weight:400;">(optional)</span></div>
+        <input type="text" id="vzip" placeholder="78701" />
       </div>
     </div>
-    <div style="font-size: 11px; color: var(--color-text-secondary); margin-bottom: 20px; margin-top: 6px; line-height: 1.5;">Your information is only used to verify your voter registration. We never sell or share it.</div>
-    <button class="btn-primary" onclick="doVerify()">Find me in the voter file →</button>
+    <div style="font-size: 11px; color: #888; margin-bottom: 20px; margin-top: 6px; line-height: 1.5;">Your information is only used to verify your voter registration. We never sell or share it.</div>
+    <div style="color: #c0392b; font-size: 13px; margin-bottom: 12px; display:none;" id="verify-error"></div>
+    <button class="btn-primary" id="verify-btn" onclick="doVerify()">Find me in the voter file →</button>
   </div>
 </div>
 
@@ -81,52 +95,35 @@
         <circle cx="24" cy="24" r="20" fill="none" stroke="#eef3fb" stroke-width="4"/>
         <path d="M24 4 A20 20 0 0 1 44 24" fill="none" stroke="#1a4fa0" stroke-width="4" stroke-linecap="round"/>
       </svg>
-      <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
     </div>
-    <div style="font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px;">Searching the voter file…</div>
-    <div style="font-size: 13px; color: var(--color-text-secondary);">Checking your name and address against the official Texas voter registry</div>
+    <div style="font-size: 16px; font-weight: 500; margin-bottom: 8px;">Searching the voter file…</div>
+    <div style="font-size: 13px; color: #888;">Checking your name and address against the official Texas voter registry</div>
   </div>
 </div>
 
-<!-- SCREEN 4: Confirm match -->
+<!-- SCREEN 4: Pick a match -->
 <div id="s4" class="screen">
   <div>
-    <div style="font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px;">Is this you?</div>
-    <div style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: 20px;">We found this record in the Texas voter file. Confirm it's you to continue.</div>
-
-    <div style="background: #eef3fb; border: 2px solid #1a4fa0; border-radius: var(--border-radius-lg); padding: 20px; margin-bottom: 20px;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
-        <div style="font-size: 20px; font-weight: 500; color: var(--color-text-primary);">Maria Gonzalez</div>
-        <span class="tag" style="background: #d6e4f7; color: #1a4fa0;">Dem</span>
-      </div>
-      <div style="display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 13px;">
-        <span style="color: var(--color-text-secondary);">Address</span>
-        <span style="color: var(--color-text-primary);">412 Oak Street, Austin</span>
-        <span style="color: var(--color-text-secondary);">County</span>
-        <span style="color: var(--color-text-primary);">Travis County</span>
-        <span style="color: var(--color-text-secondary);">Status</span>
-        <span style="color: #1a4fa0; font-weight: 500;">✓ Active registered voter</span>
-      </div>
-    </div>
-
-    <button class="btn-primary" onclick="showScreen('s5')">Yes, that's me — I'm in!</button>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 6px;">Is this you?</div>
+    <div style="font-size: 13px; color: #888; margin-bottom: 20px;">We found this record in the Texas voter file. Confirm it's you to continue.</div>
+    <div id="match-cards"></div>
     <button class="btn-secondary" onclick="showScreen('s2')">That's not me — try again</button>
     <span class="resources-link" onclick="showScreen('s_noreg')">Not registered or need to update your info?</span>
   </div>
 </div>
 
-<!-- SCREEN 5: Verified -->
+<!-- SCREEN 5: Confirmed -->
 <div id="s5" class="screen">
   <div style="text-align: center; padding: 24px 0;">
     <div style="font-size: 48px; margin-bottom: 12px;">🇺🇸</div>
     <div style="font-size: 24px; font-weight: 500; color: #1a4fa0; margin-bottom: 8px;">You're verified!</div>
-    <div style="font-size: 15px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 28px;">Welcome to WinTexas, Maria. You're now part of the movement.</div>
-    <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: var(--border-radius-lg); padding: 16px 20px; margin-bottom: 28px;">
+    <div style="font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 28px;">Welcome to WinTexas! You're now part of the movement.</div>
+    <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 16px 20px; margin-bottom: 28px;">
       <div style="font-size: 12px; color: #1a4fa0; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">Texans already committed</div>
-      <div style="font-size: 40px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px; font-variant-numeric: tabular-nums;">2,311,875</div>
+      <div style="font-size: 40px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px;" id="verified-count">...</div>
       <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;">↑ you just joined this count</div>
     </div>
-    <button class="btn-primary" onclick="showScreen('s1')">Start adding committed voters →</button>
+    <button class="btn-primary" onclick="window.location.href='/recruiter'">Start adding committed voters →</button>
   </div>
 </div>
 
@@ -134,59 +131,60 @@
 <div id="s_noreg" class="screen">
   <div style="text-align: center; padding: 16px 0 24px;">
     <div style="font-size: 40px; margin-bottom: 16px;">🗳️</div>
-    <div style="font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px;">Texas voter resources</div>
-    <div style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 24px;">Use these official links to check your registration, sign up, or update your address.</div>
-
+    <div style="font-size: 20px; font-weight: 500; margin-bottom: 10px;">Texas voter resources</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px;">Use these official links to check your registration, sign up, or update your address.</div>
     <div style="text-align: left; margin-bottom: 24px;">
-      <div style="font-size: 12px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Official Texas Secretary of State</div>
-
-      <a class="tx-link" href="https://teamrv-mvp.sos.texas.gov/MVP/mvp.do" target="_blank" style="margin-bottom: 8px;">
-        <div style="width: 36px; height: 36px; border-radius: 8px; background: #1a4fa0; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+      <div style="font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Official Texas Secretary of State</div>
+      <a class="tx-link" href="https://teamrv-mvp.sos.texas.gov/MVP/mvp.do" target="_blank">
+        <div style="width:36px;height:36px;border-radius:8px;background:#1a4fa0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </div>
-        <div style="text-align: left;">
-          <div style="font-size: 13px; font-weight: 500; color: #1a4fa0;">Check your registration status</div>
-          <div style="font-size: 11px; color: var(--color-text-secondary);">Official Texas voter search tool</div>
+        <div style="text-align:left;">
+          <div style="font-size:13px;font-weight:500;color:#1a4fa0;">Check your registration status</div>
+          <div style="font-size:11px;color:#888;">Official Texas voter search tool</div>
         </div>
       </a>
-
-      <a class="tx-link" href="https://www.sos.texas.gov/elections/voter/reqvr.shtml" target="_blank" style="margin-bottom: 8px;">
-        <div style="width: 36px; height: 36px; border-radius: 8px; background: #1a4fa0; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+      <a class="tx-link" href="https://www.sos.texas.gov/elections/voter/reqvr.shtml" target="_blank">
+        <div style="width:36px;height:36px;border-radius:8px;background:#1a4fa0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
         </div>
-        <div style="text-align: left;">
-          <div style="font-size: 13px; font-weight: 500; color: #1a4fa0;">Register to vote in Texas</div>
-          <div style="font-size: 11px; color: var(--color-text-secondary);">Official voter registration page</div>
+        <div style="text-align:left;">
+          <div style="font-size:13px;font-weight:500;color:#1a4fa0;">Register to vote in Texas</div>
+          <div style="font-size:11px;color:#888;">Official voter registration page</div>
         </div>
       </a>
-
       <a class="tx-link" href="https://www.sos.texas.gov/elections/voter/address.shtml" target="_blank">
-        <div style="width: 36px; height: 36px; border-radius: 8px; background: #1a4fa0; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <div style="width:36px;height:36px;border-radius:8px;background:#1a4fa0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
-        <div style="text-align: left;">
-          <div style="font-size: 13px; font-weight: 500; color: #1a4fa0;">Update your address</div>
-          <div style="font-size: 11px; color: var(--color-text-secondary);">Update your registration address</div>
+        <div style="text-align:left;">
+          <div style="font-size:13px;font-weight:500;color:#1a4fa0;">Update your address</div>
+          <div style="font-size:11px;color:#888;">Update your registration address</div>
         </div>
       </a>
     </div>
-
     <button class="btn-primary" onclick="showScreen('s2')">Try again with different info</button>
   </div>
 </div>
 
 </div>
-
 <script>
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-function doVerify() {
+
+let selectedVoterId = null;
+
+async function doVerify() {
   const f = document.getElementById('vfname').value.trim();
   const l = document.getElementById('vlname').value.trim();
   const st = document.getElementById('vstreet').value.trim();
   const c = document.getElementById('vcity').value.trim();
+  const errorEl = document.getElementById('verify-error');
+  const btn = document.getElementById('verify-btn');
+
+  // Validate required fields
   const missing = [];
   if (!f) missing.push('vfname');
   if (!l) missing.push('vlname');
@@ -196,9 +194,80 @@ function doVerify() {
     document.getElementById(id).style.borderColor = missing.includes(id) ? '#c0392b' : '';
   });
   if (missing.length) return;
+
+  errorEl.style.display = 'none';
+  btn.textContent = 'Searching...';
+  btn.disabled = true;
   showScreen('s3');
-  setTimeout(() => {
-    f.toLowerCase().startsWith('x') ? showScreen('s_noreg') : showScreen('s4');
-  }, 2000);
+
+  try {
+    const res = await fetch('/verify/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name: f, last_name: l, street_name: st, city: c })
+    });
+    const data = await res.json();
+
+    if (!data.results || data.results.length === 0) {
+      showScreen('s_noreg');
+      return;
+    }
+
+    // Build match cards
+    const container = document.getElementById('match-cards');
+    container.innerHTML = '';
+    data.results.forEach(voter => {
+      const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type]
+        .filter(Boolean).join(' ');
+      const partyColor = voter.party === 'DEM' ? '#eef3fb' : '#f5f5f0';
+      const partyText = voter.party === 'DEM' ? '#1a4fa0' : '#888';
+      const partyLabel = voter.party === 'DEM' ? 'Dem' : (voter.party || 'Other');
+      const card = document.createElement('div');
+      card.className = 'voter-card';
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-weight:500;font-size:15px;margin-bottom:2px;">${voter.first_name} ${voter.last_name}</div>
+            <div style="font-size:13px;color:#888;">${addr}, ${voter.city}</div>
+            <div style="font-size:12px;color:#888;margin-top:1px;">${voter.zipcode || ''}</div>
+          </div>
+          <span class="tag" style="background:${partyColor};color:${partyText};">${partyLabel}</span>
+        </div>`;
+      card.onclick = () => confirmVoter(voter.voter_id, voter.first_name + ' ' + voter.last_name);
+      container.appendChild(card);
+    });
+
+    showScreen('s4');
+  } catch (e) {
+    showScreen('s2');
+    errorEl.textContent = 'Connection error. Please try again.';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'Find me in the voter file →';
+    btn.disabled = false;
+  }
+}
+
+async function confirmVoter(voterId, name) {
+  try {
+    const res = await fetch('/verify/confirm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ voter_id: voterId })
+    });
+    if (res.ok) {
+      // Load current count for success screen
+      const countRes = await fetch('/stats/count');
+      const countData = await countRes.json();
+      document.getElementById('verified-count').textContent = countData.total.toLocaleString();
+      showScreen('s5');
+    } else {
+      showScreen('s2');
+    }
+  } catch (e) {
+    showScreen('s2');
+  }
 }
 </script>
+</body>
+</html>
