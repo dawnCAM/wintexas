@@ -19,6 +19,23 @@ body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
 .field-label { font-size: 12px; color: #888; margin-bottom: 4px; }
 input { border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; width: 100%; font-size: 15px; }
 input:focus { outline: none; border-color: #1a4fa0; }
+
+.issue-btn {
+  border: 1.5px solid #a3bde8;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #1a4fa0;
+  cursor: pointer;
+  text-align: center;
+  background: #fff;
+  transition: all .15s;
+  line-height: 1.4;
+  user-select: none;
+}
+.issue-btn:hover { background: #eef3fb; }
+.issue-btn.selected { background: #1a4fa0; color: #fff; border-color: #1a4fa0; }
+.issue-btn.disabled { opacity: 0.4; cursor: default; }
 </style>
 </head>
 <body>
@@ -89,6 +106,32 @@ input:focus { outline: none; border-color: #1a4fa0; }
     <button class="btn-primary" onclick="addAnother()">Add another voter</button>
   </div>
 
+
+  <!-- Voter issue survey (shown after adding a voter) -->
+  <div id="voter-survey" style="display:none; margin-top: 4px;">
+    <div style="background: #fff; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 20px;">
+      <div style="font-size: 15px; font-weight: 500; margin-bottom: 6px;" id="voter-survey-name"></div>
+      <div style="font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5;">What are their top concerns? Choose up to 3 — or skip if you're not sure.</div>
+      <div id="voter-issue-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Cost of living / housing')">Cost of living / housing</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Healthcare & prescriptions')">Healthcare & prescriptions</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Public education')">Public education</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Reproductive rights')">Reproductive rights</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Immigration')">Immigration</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Gun safety')">Gun safety</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Jobs & economy')">Jobs & economy</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Environment & climate')">Environment & climate</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Democracy & voting rights')">Democracy & voting rights</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Property taxes')">Property taxes</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Infrastructure & transportation')">Infrastructure & transportation</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Criminal justice reform')">Criminal justice reform</div>
+      </div>
+      <div style="font-size: 12px; color: #888; text-align: center; margin-bottom: 14px;" id="voter-survey-hint">Select up to 3 issues</div>
+      <button class="btn-primary" onclick="submitVoterSurvey()">Save & Add Another →</button>
+      <button class="btn-secondary" style="width:100%; margin-top:8px;" onclick="skipVoterSurvey()">Skip — Add Another Voter</button>
+    </div>
+  </div>
+
   <!-- Already committed message -->
   <div id="already-area" style="display:none; background: #f0f0ec; border: 1px solid #ccc; border-radius: 12px; padding: 20px; text-align: center; margin-top: 4px;">
     <div style="font-size: 24px; margin-bottom: 8px;">✓</div>
@@ -100,6 +143,73 @@ input:focus { outline: none; border-color: #1a4fa0; }
 </div>
 
 <script>
+
+// Voter issue survey
+let voterIssues = [];
+let currentVoterId = null;
+
+function toggleVoterIssue(el, issue) {
+  if (el.classList.contains('disabled')) return;
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    voterIssues = voterIssues.filter(i => i !== issue);
+  } else {
+    if (voterIssues.length >= 3) return;
+    el.classList.add('selected');
+    voterIssues.push(issue);
+  }
+  document.querySelectorAll('#voter-issue-grid .issue-btn').forEach(btn => {
+    if (!btn.classList.contains('selected')) {
+      btn.classList.toggle('disabled', voterIssues.length >= 3);
+    }
+  });
+  const hint = document.getElementById('voter-survey-hint');
+  hint.textContent = voterIssues.length === 0
+    ? 'Select up to 3 issues'
+    : voterIssues.length === 3
+      ? '3 selected — maximum reached'
+      : voterIssues.length + ' selected';
+  hint.style.color = voterIssues.length === 3 ? '#1a4fa0' : '#888';
+}
+
+async function submitVoterSurvey() {
+  if (voterIssues.length > 0 && currentVoterId) {
+    try {
+      await fetch('/survey/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          issues: voterIssues,
+          survey_type: 'voter',
+          voter_id: currentVoterId
+        })
+      });
+    } catch(e) {}
+  }
+  resetForNextVoter();
+}
+
+function skipVoterSurvey() {
+  resetForNextVoter();
+}
+
+function resetForNextVoter() {
+  // Reset survey
+  voterIssues = [];
+  currentVoterId = null;
+  document.querySelectorAll('#voter-issue-grid .issue-btn').forEach(btn => {
+    btn.classList.remove('selected', 'disabled');
+  });
+  document.getElementById('voter-survey-hint').textContent = 'Select up to 3 issues';
+  document.getElementById('voter-survey-hint').style.color = '#888';
+  // Hide survey, show entry form
+  document.getElementById('voter-survey').style.display = 'none';
+  document.getElementById('success-area').style.display = 'none';
+  document.getElementById('entry-form').style.display = 'block';
+  ['fname','lname','street','city'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fname').focus();
+}
+
 // Load counter and personal stats on page load
 async function loadStats() {
   try {
@@ -220,6 +330,13 @@ async function addVoter(voterId, name, addr) {
       document.getElementById('success-name').textContent = name;
       document.getElementById('success-addr').textContent = addr;
       document.getElementById('success-area').style.display = 'block';
+      // Show voter survey after brief pause
+      setTimeout(() => {
+        document.getElementById('success-area').style.display = 'none';
+        currentVoterId = voterId;
+        document.getElementById('voter-survey-name').textContent = "What does " + name + " care about most?";
+        document.getElementById('voter-survey').style.display = 'block';
+      }, 1800);
     }
   } catch (e) {
     document.getElementById('result-area').style.display = 'none';

@@ -566,9 +566,63 @@ async def startup():
                 ALTER TABLE recruiters
                 ADD COLUMN IF NOT EXISTS contact VARCHAR(200) UNIQUE;
             """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS survey_responses (
+                    id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                    recruiter_id UUID,
+                    voter_id     VARCHAR(20),
+                    survey_type  VARCHAR(20) NOT NULL,
+                    issue_1      VARCHAR(100),
+                    issue_2      VARCHAR(100),
+                    issue_3      VARCHAR(100),
+                    created_at   TIMESTAMP NOT NULL DEFAULT NOW()
+                );
+            """)
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_survey_type ON survey_responses (survey_type);")
             conn.commit()
     except Exception:
-        pass  # column already exists
+        pass
+    finally:
+        if conn:
+            conn.close()
+
+
+# ── Survey ─────────────────────────────────────────────────────────────────────
+
+class SurveyRequest(BaseModel):
+    issues: list
+    survey_type: str          # 'recruiter' or 'voter'
+    voter_id: Optional[str] = None
+
+
+@app.post("/survey/submit")
+async def survey_submit(body: SurveyRequest, session: Optional[str] = Cookie(None)):
+    """Save survey response — issues are stored in up to 3 columns."""
+    recruiter = get_session_recruiter(session)
+
+    issues = body.issues[:3]  # max 3
+    issue_1 = issues[0] if len(issues) > 0 else None
+    issue_2 = issues[1] if len(issues) > 1 else None
+    issue_3 = issues[2] if len(issues) > 2 else None
+
+    conn = None
+    try:
+        conn = get_conn()
+        with conn.cursor() as cur:
+            cur.execute("""
+                INSERT INTO survey_responses
+                    (recruiter_id, voter_id, survey_type, issue_1, issue_2, issue_3)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (
+                str(recruiter["id"]) if recruiter else None,
+                body.voter_id,
+                body.survey_type,
+                issue_1, issue_2, issue_3
+            ))
+            conn.commit()
+        return {"message": "Survey saved"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
     finally:
         if conn:
             conn.close()
