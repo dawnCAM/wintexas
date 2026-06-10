@@ -118,7 +118,7 @@ def search_voter_file(first_name: str, last_name: str,
                 cur.execute("""
                     SELECT voter_id, first_name, last_name, house_number,
                            dir_prefix, street_name, street_type, unit_number,
-                           city, zipcode, party, primary_2026, status_code
+                           city, zipcode, primary_2026
                     FROM voter_file
                     WHERE last_name_upper = %s
                     AND city_upper = %s
@@ -128,7 +128,7 @@ def search_voter_file(first_name: str, last_name: str,
                 cur.execute("""
                     SELECT voter_id, first_name, last_name, house_number,
                            dir_prefix, street_name, street_type, unit_number,
-                           city, zipcode, party, primary_2026, status_code
+                           city, zipcode, primary_2026
                     FROM voter_file
                     WHERE last_name_upper = %s
                     LIMIT 100

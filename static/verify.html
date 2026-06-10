@@ -219,9 +219,10 @@ async function doVerify() {
     data.results.forEach(voter => {
       const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type]
         .filter(Boolean).join(' ');
-      const partyColor = voter.party === 'DEM' ? '#eef3fb' : '#f5f5f0';
-      const partyText = voter.party === 'DEM' ? '#1a4fa0' : '#888';
-      const partyLabel = voter.party === 'DEM' ? 'Dem' : (voter.party || 'Other');
+            const isDem = voter.primary_2026 === 'ED' || voter.primary_2026 === 'XD';
+      const partyColor = isDem ? '#eef3fb' : '#f5f5f0';
+      const partyText = isDem ? '#1a4fa0' : '#888';
+      const partyLabel = isDem ? 'Dem Primary' : (voter.primary_2026 || 'No primary');
       const card = document.createElement('div');
       card.className = 'voter-card';
       card.innerHTML = `
