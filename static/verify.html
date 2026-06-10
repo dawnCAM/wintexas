@@ -22,92 +22,81 @@ input:focus { outline: none; border-color: #1a4fa0; }
 .resources-link { font-size: 12px; color: #1a4fa0; text-decoration: underline; cursor: pointer; text-align: center; display: block; margin-top: 14px; }
 .voter-card { background: #fff; border: 2px solid #1a4fa0; border-radius: 12px; padding: 16px 20px; cursor: pointer; transition: background .15s; margin-bottom: 8px; }
 .voter-card:hover { background: #eef3fb; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.issue-btn {
-  border: 1.5px solid #a3bde8;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
-  color: #1a4fa0;
-  cursor: pointer;
-  text-align: center;
-  background: #fff;
-  transition: all .15s;
-  line-height: 1.4;
-  user-select: none;
-}
+.issue-btn { border: 1.5px solid #a3bde8; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #1a4fa0; cursor: pointer; text-align: center; background: #fff; transition: all .15s; line-height: 1.4; user-select: none; }
 .issue-btn:hover { background: #eef3fb; }
-.issue-btn.selected {
-  background: #1a4fa0;
-  color: #fff;
-  border-color: #1a4fa0;
-}
-.issue-btn.disabled {
-  opacity: 0.4;
-  cursor: default;
-}
+.issue-btn.selected { background: #1a4fa0; color: #fff; border-color: #1a4fa0; }
+.issue-btn.disabled { opacity: 0.4; cursor: default; }
+.lang-toggle { display: flex; gap: 0; border: 1.5px solid #1a4fa0; border-radius: 20px; overflow: hidden; width: fit-content; margin: 0 auto 20px; }
+.lang-btn { padding: 5px 16px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: #1a4fa0; transition: all .15s; }
+.lang-btn.active { background: #1a4fa0; color: #fff; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 <div style="max-width: 440px; margin: 0 auto; padding: 1rem 0;">
 
+<!-- Language toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+  <button class="lang-btn" id="btn-es" onclick="setLang('es')">Español</button>
+</div>
+
 <!-- SCREEN 1: Intro -->
 <div id="s1" class="screen active">
   <div style="text-align: center; padding: 8px 0 24px;">
     <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px;">WinTexas.US</div>
-    <div style="font-size: 22px; font-weight: 500; margin-bottom: 10px;">Welcome — let's verify you're a registered Texas voter</div>
-    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px;">We'll match your name and address to the official Texas voter file. Takes about 30 seconds.</div>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 10px;" data-en="Welcome — let's verify you're a registered Texas voter" data-es="Bienvenido — verifiquemos que eres votante registrado en Texas">Welcome — let's verify you're a registered Texas voter</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px;" data-en="We'll match your name and address to the official Texas voter file. Takes about 30 seconds." data-es="Verificaremos tu nombre y dirección en el padrón electoral oficial de Texas. Toma unos 30 segundos.">We'll match your name and address to the official Texas voter file. Takes about 30 seconds.</div>
     <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; margin-bottom: 28px; text-align: left;">
       <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
         <div style="width:20px;height:20px;border-radius:50%;background:#1a4fa0;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
-        <div style="font-size: 13px; line-height: 1.5;">Enter your name and address</div>
+        <div style="font-size: 13px; line-height: 1.5;" data-en="Enter your name and address" data-es="Ingresa tu nombre y dirección">Enter your name and address</div>
       </div>
       <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
         <div style="width:20px;height:20px;border-radius:50%;background:#1a4fa0;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
-        <div style="font-size: 13px; line-height: 1.5;">Confirm your match in the voter file</div>
+        <div style="font-size: 13px; line-height: 1.5;" data-en="Confirm your match in the voter file" data-es="Confirma tu registro en el padrón electoral">Confirm your match in the voter file</div>
       </div>
       <div style="display: flex; gap: 10px; align-items: flex-start;">
         <div style="width:20px;height:20px;border-radius:50%;background:#1a4fa0;color:#fff;font-size:11px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
-        <div style="font-size: 13px; line-height: 1.5;">You're in — start adding committed voters</div>
+        <div style="font-size: 13px; line-height: 1.5;" data-en="You're in — start adding committed voters" data-es="Ya estás dentro — comienza a agregar votantes comprometidos">You're in — start adding committed voters</div>
       </div>
     </div>
-    <button class="btn-primary" onclick="showScreen('s2')">Let's do it →</button>
+    <button class="btn-primary" onclick="showScreen('s2')" data-en="Let's do it →" data-es="¡Vamos! →">Let's do it →</button>
   </div>
 </div>
 
 <!-- SCREEN 2: Enter your info -->
 <div id="s2" class="screen">
   <div style="margin-bottom: 4px;">
-    <div style="font-size: 22px; font-weight: 500; margin-bottom: 6px;">Your information</div>
-    <div style="font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.5;">Enter your name and address as it appears on your voter registration.</div>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 6px;" data-en="Your information" data-es="Tu información">Your information</div>
+    <div style="font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.5;" data-en="Enter your name and address as it appears on your voter registration." data-es="Ingresa tu nombre y dirección tal como aparecen en tu registro electoral.">Enter your name and address as it appears on your voter registration.</div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
       <div>
-        <div class="field-label">First name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="vfname" placeholder="Maria" />
+        <div class="field-label"><span data-en="First name" data-es="Nombre">First name</span> <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="vfname" data-placeholder-en="Maria" data-placeholder-es="María" placeholder="Maria" />
       </div>
       <div>
-        <div class="field-label">Last name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="vlname" placeholder="Gonzalez" />
+        <div class="field-label"><span data-en="Last name" data-es="Apellido">Last name</span> <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="vlname" data-placeholder-en="Gonzalez" data-placeholder-es="González" placeholder="Gonzalez" />
       </div>
     </div>
     <div style="margin-bottom: 10px;">
-      <div class="field-label">Street address <span style="color:#c0392b;">*</span></div>
-      <input type="text" id="vstreet" placeholder="412 Oak Street" />
+      <div class="field-label"><span data-en="Street address" data-es="Dirección">Street address</span> <span style="color:#c0392b;">*</span></div>
+      <input type="text" id="vstreet" data-placeholder-en="412 Oak Street" data-placeholder-es="412 Calle Oak" placeholder="412 Oak Street" />
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <div>
-        <div class="field-label">City <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="vcity" placeholder="Austin" />
+        <div class="field-label"><span data-en="City" data-es="Ciudad">City</span> <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="vcity" data-placeholder-en="Austin" data-placeholder-es="Austin" placeholder="Austin" />
       </div>
       <div>
-        <div class="field-label">ZIP <span style="color:#888;font-weight:400;">(optional)</span></div>
+        <div class="field-label"><span data-en="ZIP" data-es="Código postal">ZIP</span> <span style="color:#888;font-weight:400;" data-en="(optional)" data-es="(opcional)">(optional)</span></div>
         <input type="text" id="vzip" placeholder="78701" />
       </div>
     </div>
-    <div style="font-size: 11px; color: #888; margin-bottom: 20px; margin-top: 6px; line-height: 1.5;">Your information is only used to verify your voter registration. We never sell or share it.</div>
+    <div style="font-size: 11px; color: #888; margin-bottom: 20px; margin-top: 6px; line-height: 1.5;" data-en="Your information is only used to verify your voter registration. We never sell or share it." data-es="Tu información solo se usa para verificar tu registro electoral. Nunca la vendemos ni compartimos.">Your information is only used to verify your voter registration. We never sell or share it.</div>
     <div style="color: #c0392b; font-size: 13px; margin-bottom: 12px; display:none;" id="verify-error"></div>
-    <button class="btn-primary" id="verify-btn" onclick="doVerify()">Find me in the voter file →</button>
+    <button class="btn-primary" id="verify-btn" onclick="doVerify()" data-en="Find me in the voter file →" data-es="Búscame en el padrón electoral →">Find me in the voter file →</button>
   </div>
 </div>
 
@@ -120,19 +109,19 @@ input:focus { outline: none; border-color: #1a4fa0; }
         <path d="M24 4 A20 20 0 0 1 44 24" fill="none" stroke="#1a4fa0" stroke-width="4" stroke-linecap="round"/>
       </svg>
     </div>
-    <div style="font-size: 16px; font-weight: 500; margin-bottom: 8px;">Searching the voter file…</div>
-    <div style="font-size: 13px; color: #888;">Checking your name and address against the official Texas voter registry</div>
+    <div style="font-size: 16px; font-weight: 500; margin-bottom: 8px;" data-en="Searching the voter file…" data-es="Buscando en el padrón electoral…">Searching the voter file…</div>
+    <div style="font-size: 13px; color: #888;" data-en="Checking your name and address against the official Texas voter registry" data-es="Verificando tu nombre y dirección en el registro electoral oficial de Texas">Checking your name and address against the official Texas voter registry</div>
   </div>
 </div>
 
 <!-- SCREEN 4: Pick a match -->
 <div id="s4" class="screen">
   <div>
-    <div style="font-size: 22px; font-weight: 500; margin-bottom: 6px;">Is this you?</div>
-    <div style="font-size: 13px; color: #888; margin-bottom: 20px;">We found this record in the Texas voter file. Confirm it's you to continue.</div>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 6px;" data-en="Is this you?" data-es="¿Eres tú?">Is this you?</div>
+    <div style="font-size: 13px; color: #888; margin-bottom: 20px;" data-en="We found this record in the Texas voter file. Confirm it's you to continue." data-es="Encontramos este registro en el padrón electoral de Texas. Confírmalo para continuar.">We found this record in the Texas voter file. Confirm it's you to continue.</div>
     <div id="match-cards"></div>
-    <button class="btn-secondary" onclick="showScreen('s2')">That's not me — try again</button>
-    <span class="resources-link" onclick="showScreen('s_noreg')">Not registered or need to update your info?</span>
+    <button class="btn-secondary" onclick="showScreen('s2')" data-en="That's not me — try again" data-es="No soy yo — intentar de nuevo">That's not me — try again</button>
+    <span class="resources-link" onclick="showScreen('s_noreg')" data-en="Not registered or need to update your info?" data-es="¿No estás registrado o necesitas actualizar tu información?">Not registered or need to update your info?</span>
   </div>
 </div>
 
@@ -140,96 +129,92 @@ input:focus { outline: none; border-color: #1a4fa0; }
 <div id="s5" class="screen">
   <div style="text-align: center; padding: 24px 0;">
     <div style="font-size: 48px; margin-bottom: 12px;">🇺🇸</div>
-    <div style="font-size: 24px; font-weight: 500; color: #1a4fa0; margin-bottom: 8px;">You're verified!</div>
-    <div style="font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 28px;">Welcome to WinTexas! You're now part of the movement.</div>
+    <div style="font-size: 24px; font-weight: 500; color: #1a4fa0; margin-bottom: 8px;" data-en="You're verified!" data-es="¡Verificado!">You're verified!</div>
+    <div style="font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 28px;" data-en="Welcome to WinTexas! You're now part of the movement." data-es="¡Bienvenido a WinTexas! Ahora eres parte del movimiento.">Welcome to WinTexas! You're now part of the movement.</div>
     <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 16px 20px; margin-bottom: 28px;">
-      <div style="font-size: 12px; color: #1a4fa0; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">Texans already committed</div>
+      <div style="font-size: 12px; color: #1a4fa0; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;" data-en="Texans already committed" data-es="Tejanos ya comprometidos">Texans already committed</div>
       <div style="font-size: 40px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px;" id="verified-count">...</div>
-      <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;">↑ you just joined this count</div>
+      <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;" data-en="↑ you just joined this count" data-es="↑ acabas de unirte a este número">↑ you just joined this count</div>
     </div>
-    <button class="btn-primary" onclick="showScreen('s_legal')">Continue →</button>
+    <button class="btn-primary" onclick="showScreen('s_legal')" data-en="Continue →" data-es="Continuar →">Continue →</button>
   </div>
 </div>
 
 <!-- SCREEN: Legal acknowledgment -->
 <div id="s_legal" class="screen">
   <div style="padding: 8px 0 24px;">
-    <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; text-align: center;">Please Read Before Continuing</div>
-    <div style="font-size: 18px; font-weight: 500; margin-bottom: 12px;">Important Legal Notice</div>
+    <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; text-align: center;" data-en="Please Read Before Continuing" data-es="Por favor lea antes de continuar">Please Read Before Continuing</div>
+    <div style="font-size: 18px; font-weight: 500; margin-bottom: 12px;" data-en="Important Legal Notice" data-es="Aviso Legal Importante">Important Legal Notice</div>
     <div style="background: #f8f8f6; border-left: 3px solid #c8102e; border-radius: 0 8px 8px 0; padding: 14px 16px; margin-bottom: 20px;">
       <div style="font-size: 12px; font-weight: 600; color: #c8102e; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;">Texas Election Code § 18.067</div>
-      <div style="font-size: 12px; color: #444; line-height: 1.7; font-style: italic;">"A person commits an offense if the person uses information in connection with advertising or promoting commercial products or services that the person knows was obtained under Section 18.066. An offense under this section is a Class A misdemeanor."</div>
+      <div style="font-size: 12px; color: #444; line-height: 1.7; font-style: italic;" data-en='"A person commits an offense if the person uses information in connection with advertising or promoting commercial products or services that the person knows was obtained under Section 18.066. An offense under this section is a Class A misdemeanor."' data-es='"Una persona comete una infracción si usa información en relación con publicidad o promoción de productos o servicios comerciales que sabe fue obtenida bajo la Sección 18.066. Una infracción bajo esta sección es un delito menor de Clase A."'>"A person commits an offense if the person uses information in connection with advertising or promoting commercial products or services that the person knows was obtained under Section 18.066. An offense under this section is a Class A misdemeanor."</div>
     </div>
-    <div style="font-size: 14px; font-weight: 500; margin-bottom: 10px;">What this means in plain English:</div>
+    <div style="font-size: 14px; font-weight: 500; margin-bottom: 10px;" data-en="What this means in plain English:" data-es="Lo que esto significa en términos simples:">What this means in plain English:</div>
     <div style="margin-bottom: 20px;">
       <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
         <div style="color: #1a4fa0; font-size: 16px; flex-shrink:0;">✓</div>
-        <div style="font-size: 13px; color: #444; line-height: 1.5;">Using voter information to contact people for <strong>civic, political, or GOTV purposes</strong> is allowed</div>
+        <div style="font-size: 13px; color: #444; line-height: 1.5;" data-en="Using voter information to contact people for <strong>civic, political, or GOTV purposes</strong> is allowed" data-es="Usar información electoral para contactar personas con <strong>fines cívicos, políticos o de participación electoral</strong> está permitido">Using voter information to contact people for <strong>civic, political, or GOTV purposes</strong> is allowed</div>
       </div>
       <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
         <div style="color: #c8102e; font-size: 16px; flex-shrink:0;">✗</div>
-        <div style="font-size: 13px; color: #444; line-height: 1.5;">Using voter information to <strong>advertise or sell commercial products or services</strong> is a Class A misdemeanor</div>
+        <div style="font-size: 13px; color: #444; line-height: 1.5;" data-en="Using voter information to <strong>advertise or sell commercial products or services</strong> is a Class A misdemeanor" data-es="Usar información electoral para <strong>publicitar o vender productos o servicios comerciales</strong> es un delito menor de Clase A">Using voter information to <strong>advertise or sell commercial products or services</strong> is a Class A misdemeanor</div>
       </div>
       <div style="display: flex; gap: 10px; align-items: flex-start;">
         <div style="color: #c8102e; font-size: 16px; flex-shrink:0;">✗</div>
-        <div style="font-size: 13px; color: #444; line-height: 1.5;"><strong>Sharing or selling</strong> voter data with businesses or third parties is not allowed</div>
+        <div style="font-size: 13px; color: #444; line-height: 1.5;" data-en="<strong>Sharing or selling</strong> voter data with businesses or third parties is not allowed" data-es="<strong>Compartir o vender</strong> datos electorales con empresas o terceros no está permitido"><strong>Sharing or selling</strong> voter data with businesses or third parties is not allowed</div>
       </div>
     </div>
     <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px;">
       <label style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer;">
         <input type="checkbox" id="legal-check" style="width:18px; height:18px; margin-top:2px; flex-shrink:0; cursor:pointer;" onchange="toggleLegalBtn()"/>
-        <span style="font-size: 13px; color: #1a1a18; line-height: 1.6;">I have read and understand the above legal notice. I agree to use WinTexas only for lawful civic and political get-out-the-vote purposes, and will not use voter information for commercial purposes.</span>
+        <span style="font-size: 13px; color: #1a1a18; line-height: 1.6;" data-en="I have read and understand the above legal notice. I agree to use WinTexas only for lawful civic and political get-out-the-vote purposes, and will not use voter information for commercial purposes." data-es="He leído y entiendo el aviso legal anterior. Acepto usar WinTexas únicamente para fines cívicos y políticos legales de participación electoral, y no usaré la información electoral con fines comerciales.">I have read and understand the above legal notice. I agree to use WinTexas only for lawful civic and political get-out-the-vote purposes, and will not use voter information for commercial purposes.</span>
       </label>
     </div>
-    <button class="btn-primary" id="legal-btn" onclick="showScreen('s_survey')" disabled style="opacity:0.4; cursor:not-allowed;">I Agree — Start Adding Committed Voters →</button>
+    <button class="btn-primary" id="legal-btn" onclick="showScreen('s_survey')" disabled style="opacity:0.4; cursor:not-allowed;" data-en="I Agree — Start Adding Committed Voters →" data-es="Acepto — Comenzar a agregar votantes comprometidos →">I Agree — Start Adding Committed Voters →</button>
+  </div>
+</div>
+
+<!-- SCREEN: Issue survey -->
+<div id="s_survey" class="screen">
+  <div style="padding: 8px 0 24px;">
+    <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; text-align: center;" data-en="One Quick Question" data-es="Una Pregunta Rápida">One Quick Question</div>
+    <div style="font-size: 20px; font-weight: 500; margin-bottom: 8px;" data-en="What are your top concerns?" data-es="¿Cuáles son tus principales preocupaciones?">What are your top concerns?</div>
+    <div style="font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.5;" data-en="Choose up to 3 issues that matter most to you." data-es="Elige hasta 3 temas que más te importan.">Choose up to 3 issues that matter most to you.</div>
+    <div id="issue-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px;">
+      <div class="issue-btn" onclick="toggleIssue(this, 'Cost of living / housing')" data-en="Cost of living / housing" data-es="Costo de vida / vivienda">Cost of living / housing</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Healthcare & prescriptions')" data-en="Healthcare & prescriptions" data-es="Salud y medicamentos">Healthcare & prescriptions</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Public education')" data-en="Public education" data-es="Educación pública">Public education</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Reproductive rights')" data-en="Reproductive rights" data-es="Derechos reproductivos">Reproductive rights</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Immigration')" data-en="Immigration" data-es="Inmigración">Immigration</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Gun safety')" data-en="Gun safety" data-es="Seguridad con armas">Gun safety</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Jobs & economy')" data-en="Jobs & economy" data-es="Empleo y economía">Jobs & economy</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Environment & climate')" data-en="Environment & climate" data-es="Medio ambiente y clima">Environment & climate</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Democracy & voting rights')" data-en="Democracy & voting rights" data-es="Democracia y derechos electorales">Democracy & voting rights</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Property taxes')" data-en="Property taxes" data-es="Impuestos a la propiedad">Property taxes</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Infrastructure & transportation')" data-en="Infrastructure & transportation" data-es="Infraestructura y transporte">Infrastructure & transportation</div>
+      <div class="issue-btn" onclick="toggleIssue(this, 'Criminal justice reform')" data-en="Criminal justice reform" data-es="Reforma de justicia criminal">Criminal justice reform</div>
+    </div>
+    <div style="font-size: 12px; color: #888; text-align: center; margin-bottom: 16px;" id="survey-hint" data-en="Select up to 3 issues" data-es="Selecciona hasta 3 temas">Select up to 3 issues</div>
+    <button class="btn-primary" onclick="submitSurvey('recruiter')" data-en="Save & Continue →" data-es="Guardar y continuar →">Save & Continue →</button>
+    <button class="btn-secondary" onclick="window.location.href='/recruiter'" data-en="Skip for now" data-es="Omitir por ahora">Skip for now</button>
   </div>
 </div>
 
 <!-- SCREEN: Not found / Resources -->
-
-<!-- SCREEN: Issue survey (recruiter) -->
-<div id="s_survey" class="screen">
-  <div style="padding: 8px 0 24px;">
-    <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; text-align: center;">One Quick Question</div>
-    <div style="font-size: 20px; font-weight: 500; margin-bottom: 8px;">What are your top concerns?</div>
-    <div style="font-size: 13px; color: #888; margin-bottom: 20px; line-height: 1.5;">Choose up to 3 issues that matter most to you. This helps us understand what Texans care about.</div>
-
-    <div id="issue-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px;">
-      <div class="issue-btn" onclick="toggleIssue(this, 'Cost of living / housing')">Cost of living / housing</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Healthcare & prescriptions')">Healthcare & prescriptions</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Public education')">Public education</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Reproductive rights')">Reproductive rights</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Immigration')">Immigration</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Gun safety')">Gun safety</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Jobs & economy')">Jobs & economy</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Environment & climate')">Environment & climate</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Democracy & voting rights')">Democracy & voting rights</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Property taxes')">Property taxes</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Infrastructure & transportation')">Infrastructure & transportation</div>
-      <div class="issue-btn" onclick="toggleIssue(this, 'Criminal justice reform')">Criminal justice reform</div>
-    </div>
-
-    <div style="font-size: 12px; color: #888; text-align: center; margin-bottom: 16px;" id="survey-hint">Select up to 3 issues</div>
-
-    <button class="btn-primary" id="survey-btn" onclick="submitSurvey('recruiter')">Save & Continue →</button>
-    <button class="btn-secondary" style="width:100%; margin-top:10px;" onclick="window.location.href='/recruiter'">Skip for now</button>
-  </div>
-</div>
-
 <div id="s_noreg" class="screen">
   <div style="text-align: center; padding: 16px 0 24px;">
     <div style="font-size: 40px; margin-bottom: 16px;">🗳️</div>
-    <div style="font-size: 20px; font-weight: 500; margin-bottom: 10px;">Texas voter resources</div>
-    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px;">Use these official links to check your registration, sign up, or update your address.</div>
+    <div style="font-size: 20px; font-weight: 500; margin-bottom: 10px;" data-en="Texas voter resources" data-es="Recursos para votantes de Texas">Texas voter resources</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px;" data-en="Use these official links to check your registration, sign up, or update your address." data-es="Usa estos enlaces oficiales para verificar tu registro, inscribirte o actualizar tu dirección.">Use these official links to check your registration, sign up, or update your address.</div>
     <div style="text-align: left; margin-bottom: 24px;">
-      <div style="font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Official Texas Secretary of State</div>
+      <div style="font-size: 12px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;" data-en="Official Texas Secretary of State" data-es="Secretaría de Estado Oficial de Texas">Official Texas Secretary of State</div>
       <a class="tx-link" href="https://teamrv-mvp.sos.texas.gov/MVP/mvp.do" target="_blank">
         <div style="width:36px;height:36px;border-radius:8px;background:#1a4fa0;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         </div>
         <div style="text-align:left;">
-          <div style="font-size:13px;font-weight:500;color:#1a4fa0;">Check your registration status</div>
-          <div style="font-size:11px;color:#888;">Official Texas voter search tool</div>
+          <div style="font-size:13px;font-weight:500;color:#1a4fa0;" data-en="Check your registration status" data-es="Verifica tu estado de registro">Check your registration status</div>
+          <div style="font-size:11px;color:#888;" data-en="Official Texas voter search tool" data-es="Herramienta oficial de búsqueda electoral de Texas">Official Texas voter search tool</div>
         </div>
       </a>
       <a class="tx-link" href="https://www.sos.texas.gov/elections/voter/reqvr.shtml" target="_blank">
@@ -237,8 +222,8 @@ input:focus { outline: none; border-color: #1a4fa0; }
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
         </div>
         <div style="text-align:left;">
-          <div style="font-size:13px;font-weight:500;color:#1a4fa0;">Register to vote in Texas</div>
-          <div style="font-size:11px;color:#888;">Official voter registration page</div>
+          <div style="font-size:13px;font-weight:500;color:#1a4fa0;" data-en="Register to vote in Texas" data-es="Regístrate para votar en Texas">Register to vote in Texas</div>
+          <div style="font-size:11px;color:#888;" data-en="Official voter registration page" data-es="Página oficial de registro electoral">Official voter registration page</div>
         </div>
       </a>
       <a class="tx-link" href="https://www.sos.texas.gov/elections/voter/address.shtml" target="_blank">
@@ -246,23 +231,87 @@ input:focus { outline: none; border-color: #1a4fa0; }
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
         <div style="text-align:left;">
-          <div style="font-size:13px;font-weight:500;color:#1a4fa0;">Update your address</div>
-          <div style="font-size:11px;color:#888;">Update your registration address</div>
+          <div style="font-size:13px;font-weight:500;color:#1a4fa0;" data-en="Update your address" data-es="Actualiza tu dirección">Update your address</div>
+          <div style="font-size:11px;color:#888;" data-en="Update your registration address" data-es="Actualiza tu dirección de registro">Update your registration address</div>
         </div>
       </a>
     </div>
-    <button class="btn-primary" onclick="showScreen('s2')">Try again with different info</button>
+    <button class="btn-primary" onclick="showScreen('s2')" data-en="Try again with different info" data-es="Intentar con información diferente">Try again with different info</button>
   </div>
 </div>
 
 </div>
 <script>
+let currentLang = 'en';
+let selectedIssues = [];
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+  document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-' + lang) || el.placeholder;
+  });
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-let selectedVoterId = null;
+function toggleLegalBtn() {
+  const btn = document.getElementById('legal-btn');
+  const checked = document.getElementById('legal-check').checked;
+  btn.disabled = !checked;
+  btn.style.opacity = checked ? '1' : '0.4';
+  btn.style.cursor = checked ? 'pointer' : 'not-allowed';
+}
+
+function toggleIssue(el, issue) {
+  if (el.classList.contains('disabled')) return;
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    selectedIssues = selectedIssues.filter(i => i !== issue);
+  } else {
+    if (selectedIssues.length >= 3) return;
+    el.classList.add('selected');
+    selectedIssues.push(issue);
+  }
+  document.querySelectorAll('#issue-grid .issue-btn').forEach(btn => {
+    if (!btn.classList.contains('selected')) {
+      btn.classList.toggle('disabled', selectedIssues.length >= 3);
+    }
+  });
+  const hint = document.getElementById('survey-hint');
+  if (hint) {
+    if (currentLang === 'es') {
+      hint.textContent = selectedIssues.length === 0 ? 'Selecciona hasta 3 temas'
+        : selectedIssues.length === 3 ? '3 seleccionados — máximo alcanzado'
+        : selectedIssues.length + ' seleccionados';
+    } else {
+      hint.textContent = selectedIssues.length === 0 ? 'Select up to 3 issues'
+        : selectedIssues.length === 3 ? '3 selected — maximum reached'
+        : selectedIssues.length + ' selected';
+    }
+    hint.style.color = selectedIssues.length === 3 ? '#1a4fa0' : '#888';
+  }
+}
+
+async function submitSurvey(type) {
+  try {
+    await fetch('/survey/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ issues: selectedIssues, survey_type: type })
+    });
+  } catch(e) {}
+  window.location.href = '/recruiter';
+}
 
 async function doVerify() {
   const f = document.getElementById('vfname').value.trim();
@@ -271,8 +320,6 @@ async function doVerify() {
   const c = document.getElementById('vcity').value.trim();
   const errorEl = document.getElementById('verify-error');
   const btn = document.getElementById('verify-btn');
-
-  // Validate required fields
   const missing = [];
   if (!f) missing.push('vfname');
   if (!l) missing.push('vlname');
@@ -282,12 +329,10 @@ async function doVerify() {
     document.getElementById(id).style.borderColor = missing.includes(id) ? '#c0392b' : '';
   });
   if (missing.length) return;
-
   errorEl.style.display = 'none';
-  btn.textContent = 'Searching...';
+  btn.textContent = currentLang === 'es' ? 'Buscando...' : 'Searching...';
   btn.disabled = true;
   showScreen('s3');
-
   try {
     const res = await fetch('/verify/search', {
       method: 'POST',
@@ -295,22 +340,18 @@ async function doVerify() {
       body: JSON.stringify({ first_name: f, last_name: l, street_name: st, city: c })
     });
     const data = await res.json();
-
     if (!data.results || data.results.length === 0) {
       showScreen('s_noreg');
       return;
     }
-
-    // Build match cards
     const container = document.getElementById('match-cards');
     container.innerHTML = '';
     data.results.forEach(voter => {
-      const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type]
-        .filter(Boolean).join(' ');
-            const isDem = voter.primary_2026 === 'ED' || voter.primary_2026 === 'XD';
+      const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type].filter(Boolean).join(' ');
+      const isDem = voter.primary_2026 === 'ED' || voter.primary_2026 === 'XD';
       const partyColor = isDem ? '#eef3fb' : '#f5f5f0';
       const partyText = isDem ? '#1a4fa0' : '#888';
-      const partyLabel = isDem ? 'Dem Primary' : (voter.primary_2026 || 'No primary');
+      const partyLabel = isDem ? (currentLang === 'es' ? 'Primaria Dem' : 'Dem Primary') : (voter.primary_2026 || (currentLang === 'es' ? 'Sin primaria' : 'No primary'));
       const card = document.createElement('div');
       card.className = 'voter-card';
       card.innerHTML = `
@@ -325,69 +366,15 @@ async function doVerify() {
       card.onclick = () => confirmVoter(voter.voter_id, voter.first_name + ' ' + voter.last_name);
       container.appendChild(card);
     });
-
     showScreen('s4');
   } catch (e) {
     showScreen('s2');
-    errorEl.textContent = 'Connection error. Please try again.';
+    errorEl.textContent = currentLang === 'es' ? 'Error de conexión. Intenta de nuevo.' : 'Connection error. Please try again.';
     errorEl.style.display = 'block';
   } finally {
-    btn.textContent = 'Find me in the voter file →';
+    btn.textContent = currentLang === 'es' ? 'Búscame en el padrón electoral →' : 'Find me in the voter file →';
     btn.disabled = false;
   }
-}
-
-
-// Survey logic
-let selectedIssues = [];
-
-function toggleIssue(el, issue) {
-  if (el.classList.contains('disabled')) return;
-  if (el.classList.contains('selected')) {
-    el.classList.remove('selected');
-    selectedIssues = selectedIssues.filter(i => i !== issue);
-  } else {
-    if (selectedIssues.length >= 3) return;
-    el.classList.add('selected');
-    selectedIssues.push(issue);
-  }
-  // Disable unselected buttons when 3 are chosen
-  const all = document.querySelectorAll('.issue-btn');
-  all.forEach(btn => {
-    if (!btn.classList.contains('selected')) {
-      btn.classList.toggle('disabled', selectedIssues.length >= 3);
-    }
-  });
-  const hint = document.getElementById('survey-hint');
-  if (hint) {
-    hint.textContent = selectedIssues.length === 0
-      ? 'Select up to 3 issues'
-      : selectedIssues.length === 3
-        ? '3 selected — maximum reached'
-        : selectedIssues.length + ' selected';
-    hint.style.color = selectedIssues.length === 3 ? '#1a4fa0' : '#888';
-  }
-}
-
-async function submitSurvey(type) {
-  try {
-    await fetch('/survey/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ issues: selectedIssues, survey_type: type })
-    });
-  } catch(e) {
-    // Don't block navigation if survey fails
-  }
-  window.location.href = '/recruiter';
-}
-
-function toggleLegalBtn() {
-  const btn = document.getElementById('legal-btn');
-  const checked = document.getElementById('legal-check').checked;
-  btn.disabled = !checked;
-  btn.style.opacity = checked ? '1' : '0.4';
-  btn.style.cursor = checked ? 'pointer' : 'not-allowed';
 }
 
 async function confirmVoter(voterId, name) {
@@ -398,7 +385,6 @@ async function confirmVoter(voterId, name) {
       body: JSON.stringify({ voter_id: voterId })
     });
     if (res.ok) {
-      // Load current count for success screen
       const countRes = await fetch('/stats/count');
       const countData = await countRes.json();
       document.getElementById('verified-count').textContent = countData.total.toLocaleString();
@@ -410,6 +396,13 @@ async function confirmVoter(voterId, name) {
     showScreen('s2');
   }
 }
+
+function detectLang() {
+  const lang = navigator.language || navigator.userLanguage || 'en';
+  if (lang.toLowerCase().startsWith('es')) setLang('es');
+}
+
+detectLang();
 </script>
 </body>
 </html>

@@ -19,82 +19,76 @@ body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
 .field-label { font-size: 12px; color: #888; margin-bottom: 4px; }
 input { border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; width: 100%; font-size: 15px; }
 input:focus { outline: none; border-color: #1a4fa0; }
-
-.issue-btn {
-  border: 1.5px solid #a3bde8;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
-  color: #1a4fa0;
-  cursor: pointer;
-  text-align: center;
-  background: #fff;
-  transition: all .15s;
-  line-height: 1.4;
-  user-select: none;
-}
+.issue-btn { border: 1.5px solid #a3bde8; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #1a4fa0; cursor: pointer; text-align: center; background: #fff; transition: all .15s; line-height: 1.4; user-select: none; }
 .issue-btn:hover { background: #eef3fb; }
 .issue-btn.selected { background: #1a4fa0; color: #fff; border-color: #1a4fa0; }
 .issue-btn.disabled { opacity: 0.4; cursor: default; }
+.lang-toggle { display: flex; gap: 0; border: 1.5px solid #1a4fa0; border-radius: 20px; overflow: hidden; width: fit-content; margin: 0 auto 16px; }
+.lang-btn { padding: 5px 16px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: #1a4fa0; transition: all .15s; }
+.lang-btn.active { background: #1a4fa0; color: #fff; }
 </style>
 </head>
 <body>
 <div style="max-width: 480px; margin: 0 auto; padding: 1rem 0;">
 
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+    <button class="lang-btn" id="btn-es" onclick="setLang('es')">Español</button>
+  </div>
+
   <!-- Counter banner -->
   <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 16px 20px; text-align: center; margin-bottom: 20px;">
-    <div style="font-size: 13px; color: #1a4fa0; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">Texans committed to vote Blue</div>
+    <div style="font-size: 13px; color: #1a4fa0; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;" data-en="Texans committed to vote Blue" data-es="Tejanos comprometidos a votar Azul">Texans committed to vote Blue</div>
     <div class="counter-num" id="counter">Loading...</div>
-    <div style="font-size: 12px; color: #2d60b8; margin-top: 4px;">↑ growing right now</div>
+    <div style="font-size: 12px; color: #2d60b8; margin-top: 4px;" data-en="↑ growing right now" data-es="↑ creciendo ahora mismo">↑ growing right now</div>
   </div>
 
   <!-- Personal stats -->
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
     <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; text-align: center;">
-      <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">You've added</div>
+      <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;" data-en="You've added" data-es="Has agregado">You've added</div>
       <div style="font-size: 28px; font-weight: 500;" id="my-count">—</div>
     </div>
     <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; text-align: center;">
-      <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Your network</div>
+      <div style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;" data-en="Your network" data-es="Tu red">Your network</div>
       <div style="font-size: 28px; font-weight: 500;" id="network-count">—</div>
     </div>
   </div>
 
   <!-- Entry form -->
   <div id="entry-form">
-    <div style="font-size: 15px; font-weight: 500; margin-bottom: 14px;">Add a committed voter</div>
-
+    <div style="font-size: 15px; font-weight: 500; margin-bottom: 14px;" data-en="Add a committed voter" data-es="Agregar un votante comprometido">Add a committed voter</div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
       <div>
-        <div class="field-label">First name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="fname" placeholder="Maria" />
+        <div class="field-label"><span data-en="First name" data-es="Nombre">First name</span> <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="fname" data-placeholder-en="Maria" data-placeholder-es="María" placeholder="Maria" />
       </div>
       <div>
-        <div class="field-label">Last name <span style="color:#c0392b;">*</span></div>
-        <input type="text" id="lname" placeholder="Gonzalez" />
+        <div class="field-label"><span data-en="Last name" data-es="Apellido">Last name</span> <span style="color:#c0392b;">*</span></div>
+        <input type="text" id="lname" data-placeholder-en="Gonzalez" data-placeholder-es="González" placeholder="Gonzalez" />
       </div>
     </div>
-
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px;">
       <div>
-        <div class="field-label">Street name <span style="color:#888;font-weight:400;">(optional)</span></div>
-        <input type="text" id="street" placeholder="Oak Street" />
+        <div class="field-label"><span data-en="Street name" data-es="Nombre de calle">Street name</span> <span style="color:#888;font-weight:400;" data-en="(optional)" data-es="(opcional)">(optional)</span></div>
+        <input type="text" id="street" data-placeholder-en="Oak Street" data-placeholder-es="Calle Oak" placeholder="Oak Street" />
       </div>
       <div>
-        <div class="field-label">City <span style="color:#888;font-weight:400;">(optional)</span></div>
-        <input type="text" id="city" placeholder="Austin" />
+        <div class="field-label"><span data-en="City" data-es="Ciudad">City</span> <span style="color:#888;font-weight:400;" data-en="(optional)" data-es="(opcional)">(optional)</span></div>
+        <input type="text" id="city" data-placeholder-en="Austin" data-placeholder-es="Austin" placeholder="Austin" />
       </div>
     </div>
-    <div style="font-size: 11px; color: #888; margin-top: 6px; margin-bottom: 14px; font-style: italic;">Adding street or city helps find the right person when names are common</div>
+    <div style="font-size: 11px; color: #888; margin-top: 6px; margin-bottom: 14px; font-style: italic;" data-en="Adding street or city helps find the right person when names are common" data-es="Agregar calle o ciudad ayuda a encontrar a la persona correcta cuando los nombres son comunes">Adding street or city helps find the right person when names are common</div>
     <div style="color: #c0392b; font-size: 13px; margin-bottom: 10px; display:none;" id="lookup-error"></div>
-    <button class="btn-primary" id="lookup-btn" onclick="doLookup()">Look them up →</button>
+    <button class="btn-primary" id="lookup-btn" onclick="doLookup()" data-en="Look them up →" data-es="Buscarlos →">Look them up →</button>
   </div>
 
   <!-- Lookup results -->
   <div id="result-area" style="display:none; margin-top: 20px;">
-    <div style="font-size: 14px; color: #888; margin-bottom: 10px;" id="result-label">Is this the person you talked to?</div>
+    <div style="font-size: 14px; color: #888; margin-bottom: 10px;" id="result-label" data-en="Is this the person you talked to?" data-es="¿Es esta la persona con quien hablaste?">Is this the person you talked to?</div>
     <div id="result-cards"></div>
-    <button class="btn-secondary" style="width:100%; margin-top: 4px; font-size: 13px;" onclick="resetForm()">None of these — try again</button>
+    <button class="btn-secondary" style="width:100%; margin-top: 4px; font-size: 13px;" onclick="resetForm()" data-en="None of these — try again" data-es="Ninguno de estos — intentar de nuevo">None of these — try again</button>
   </div>
 
   <!-- Success -->
@@ -102,33 +96,32 @@ input:focus { outline: none; border-color: #1a4fa0; }
     <div style="font-size: 32px; margin-bottom: 8px;">🎉</div>
     <div style="font-weight: 500; font-size: 16px; color: #1a4fa0; margin-bottom: 4px;" id="success-name"></div>
     <div style="font-size: 13px; color: #2d60b8; margin-bottom: 4px;" id="success-addr"></div>
-    <div style="font-size: 13px; color: #666; margin-bottom: 16px;">is now committed! The count just went up.</div>
-    <button class="btn-primary" onclick="addAnother()">Add another voter</button>
+    <div style="font-size: 13px; color: #666; margin-bottom: 16px;" data-en="is now committed! The count just went up." data-es="¡ya está comprometido! El contador acaba de subir.">is now committed! The count just went up.</div>
+    <button class="btn-primary" onclick="addAnother()" data-en="Add another voter" data-es="Agregar otro votante">Add another voter</button>
   </div>
 
-
-  <!-- Voter issue survey (shown after adding a voter) -->
+  <!-- Voter issue survey -->
   <div id="voter-survey" style="display:none; margin-top: 4px;">
     <div style="background: #fff; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 20px;">
       <div style="font-size: 15px; font-weight: 500; margin-bottom: 6px;" id="voter-survey-name"></div>
-      <div style="font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5;">What are their top concerns? Choose up to 3 — or skip if you're not sure.</div>
+      <div style="font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5;" data-en="What are their top concerns? Choose up to 3 — or skip if you're not sure." data-es="¿Cuáles son sus principales preocupaciones? Elige hasta 3 — o salta si no estás seguro.">What are their top concerns? Choose up to 3 — or skip if you're not sure.</div>
       <div id="voter-issue-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Cost of living / housing')">Cost of living / housing</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Healthcare & prescriptions')">Healthcare & prescriptions</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Public education')">Public education</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Reproductive rights')">Reproductive rights</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Immigration')">Immigration</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Gun safety')">Gun safety</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Jobs & economy')">Jobs & economy</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Environment & climate')">Environment & climate</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Democracy & voting rights')">Democracy & voting rights</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Property taxes')">Property taxes</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Infrastructure & transportation')">Infrastructure & transportation</div>
-        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Criminal justice reform')">Criminal justice reform</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Cost of living / housing')" data-en="Cost of living / housing" data-es="Costo de vida / vivienda">Cost of living / housing</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Healthcare & prescriptions')" data-en="Healthcare & prescriptions" data-es="Salud y medicamentos">Healthcare & prescriptions</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Public education')" data-en="Public education" data-es="Educación pública">Public education</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Reproductive rights')" data-en="Reproductive rights" data-es="Derechos reproductivos">Reproductive rights</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Immigration')" data-en="Immigration" data-es="Inmigración">Immigration</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Gun safety')" data-en="Gun safety" data-es="Seguridad con armas">Gun safety</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Jobs & economy')" data-en="Jobs & economy" data-es="Empleo y economía">Jobs & economy</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Environment & climate')" data-en="Environment & climate" data-es="Medio ambiente y clima">Environment & climate</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Democracy & voting rights')" data-en="Democracy & voting rights" data-es="Democracia y derechos electorales">Democracy & voting rights</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Property taxes')" data-en="Property taxes" data-es="Impuestos a la propiedad">Property taxes</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Infrastructure & transportation')" data-en="Infrastructure & transportation" data-es="Infraestructura y transporte">Infrastructure & transportation</div>
+        <div class="issue-btn" onclick="toggleVoterIssue(this, 'Criminal justice reform')" data-en="Criminal justice reform" data-es="Reforma de justicia criminal">Criminal justice reform</div>
       </div>
-      <div style="font-size: 12px; color: #888; text-align: center; margin-bottom: 14px;" id="voter-survey-hint">Select up to 3 issues</div>
-      <button class="btn-primary" onclick="submitVoterSurvey()">Save & Add Another →</button>
-      <button class="btn-secondary" style="width:100%; margin-top:8px;" onclick="skipVoterSurvey()">Skip — Add Another Voter</button>
+      <div style="font-size: 12px; color: #888; text-align: center; margin-bottom: 14px;" id="voter-survey-hint" data-en="Select up to 3 issues" data-es="Selecciona hasta 3 temas">Select up to 3 issues</div>
+      <button class="btn-primary" onclick="submitVoterSurvey()" data-en="Save & Add Another →" data-es="Guardar y agregar otro →">Save & Add Another →</button>
+      <button class="btn-secondary" style="width:100%; margin-top:8px;" onclick="skipVoterSurvey()" data-en="Skip — Add Another Voter" data-es="Omitir — Agregar otro votante">Skip — Add Another Voter</button>
     </div>
   </div>
 
@@ -136,17 +129,154 @@ input:focus { outline: none; border-color: #1a4fa0; }
   <div id="already-area" style="display:none; background: #f0f0ec; border: 1px solid #ccc; border-radius: 12px; padding: 20px; text-align: center; margin-top: 4px;">
     <div style="font-size: 24px; margin-bottom: 8px;">✓</div>
     <div style="font-weight: 500; font-size: 15px; margin-bottom: 4px;" id="already-name"></div>
-    <div style="font-size: 13px; color: #888; margin-bottom: 16px;">is already on the committed list — great news!</div>
-    <button class="btn-primary" onclick="addAnother()">Add another voter</button>
+    <div style="font-size: 13px; color: #888; margin-bottom: 16px;" data-en="is already on the committed list — great news!" data-es="ya está en la lista de comprometidos — ¡buenas noticias!">is already on the committed list — great news!</div>
+    <button class="btn-primary" onclick="addAnother()" data-en="Add another voter" data-es="Agregar otro votante">Add another voter</button>
   </div>
 
 </div>
 
 <script>
-
-// Voter issue survey
+let currentLang = 'en';
 let voterIssues = [];
 let currentVoterId = null;
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+  document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-' + lang) || el.placeholder;
+  });
+}
+
+async function loadStats() {
+  try {
+    const [countRes, meRes] = await Promise.all([
+      fetch('/stats/count'),
+      fetch('/stats/me')
+    ]);
+    const countData = await countRes.json();
+    document.getElementById('counter').textContent = countData.total.toLocaleString();
+    if (meRes.ok) {
+      const meData = await meRes.json();
+      document.getElementById('my-count').textContent = meData.voters_added.toLocaleString();
+      document.getElementById('network-count').textContent = meData.network_size.toLocaleString();
+    }
+  } catch (e) {
+    document.getElementById('counter').textContent = '213,625';
+  }
+}
+
+async function doLookup() {
+  const f = document.getElementById('fname').value.trim();
+  const l = document.getElementById('lname').value.trim();
+  const errorEl = document.getElementById('lookup-error');
+  const btn = document.getElementById('lookup-btn');
+  if (!f || !l) {
+    document.getElementById('fname').style.borderColor = f ? '' : '#c0392b';
+    document.getElementById('lname').style.borderColor = l ? '' : '#c0392b';
+    return;
+  }
+  document.getElementById('fname').style.borderColor = '';
+  document.getElementById('lname').style.borderColor = '';
+  errorEl.style.display = 'none';
+  const street = document.getElementById('street').value.trim();
+  const city = document.getElementById('city').value.trim();
+  btn.textContent = currentLang === 'es' ? 'Buscando...' : 'Searching...';
+  btn.disabled = true;
+  try {
+    const res = await fetch('/voters/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name: f, last_name: l, street_name: street, city: city })
+    });
+    const data = await res.json();
+    if (!data.results || data.results.length === 0) {
+      errorEl.textContent = currentLang === 'es'
+        ? 'No encontramos a esta persona. Verifica la ortografía o agrega calle o ciudad.'
+        : 'No match found. Check the spelling or try adding a street name or city.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    const container = document.getElementById('result-cards');
+    container.innerHTML = '';
+    data.results.forEach(voter => {
+      const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type].filter(Boolean).join(' ');
+      const isDem = voter.primary_2026 === 'ED' || voter.primary_2026 === 'XD';
+      const partyColor = isDem ? '#eef3fb' : '#f5f5f0';
+      const partyText = isDem ? '#1a4fa0' : '#888';
+      const partyLabel = isDem
+        ? (currentLang === 'es' ? 'Primaria Dem' : 'Dem Primary')
+        : (voter.primary_2026 || (currentLang === 'es' ? 'Sin primaria' : 'No primary'));
+      const card = document.createElement('div');
+      card.className = 'voter-card' + (voter.already_committed ? ' already-committed' : '');
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-weight:500;font-size:15px;margin-bottom:2px;">${voter.first_name} ${voter.last_name}</div>
+            <div style="font-size:13px;color:#888;">${addr}, ${voter.city}</div>
+            <div style="font-size:12px;color:#888;margin-top:1px;">${voter.zipcode || ''}</div>
+            ${voter.already_committed ? `<div style="font-size:12px;color:#1a4fa0;font-weight:500;margin-top:4px;">✓ ${currentLang === 'es' ? 'Ya comprometido' : 'Already committed'}</div>` : ''}
+          </div>
+          <span class="tag" style="background:${partyColor};color:${partyText};">${partyLabel}</span>
+        </div>`;
+      if (!voter.already_committed) {
+        card.onclick = () => addVoter(voter.voter_id, voter.first_name + ' ' + voter.last_name, addr + ', ' + voter.city);
+      }
+      container.appendChild(card);
+    });
+    document.getElementById('result-label').textContent = (street || city)
+      ? (currentLang === 'es' ? 'Esto es lo que encontramos — ¿es esta la persona?' : "Here's who we found — is this them?")
+      : (currentLang === 'es' ? 'Encontramos varios — toca el correcto:' : 'We found a few matches — tap the right one:');
+    document.getElementById('entry-form').style.display = 'none';
+    document.getElementById('result-area').style.display = 'block';
+  } catch (e) {
+    errorEl.textContent = currentLang === 'es' ? 'Error de conexión. Intenta de nuevo.' : 'Connection error. Please try again.';
+    errorEl.style.display = 'block';
+  } finally {
+    btn.textContent = currentLang === 'es' ? 'Buscarlos →' : 'Look them up →';
+    btn.disabled = false;
+  }
+}
+
+async function addVoter(voterId, name, addr) {
+  try {
+    const res = await fetch('/voters/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ voter_id: voterId })
+    });
+    const data = await res.json();
+    document.getElementById('result-area').style.display = 'none';
+    if (data.already_committed) {
+      document.getElementById('already-name').textContent = name;
+      document.getElementById('already-area').style.display = 'block';
+    } else {
+      document.getElementById('counter').textContent = data.total.toLocaleString();
+      const myCount = parseInt(document.getElementById('my-count').textContent.replace(/,/g,'')) + 1;
+      document.getElementById('my-count').textContent = myCount.toLocaleString();
+      document.getElementById('success-name').textContent = name;
+      document.getElementById('success-addr').textContent = addr;
+      document.getElementById('success-area').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('success-area').style.display = 'none';
+        currentVoterId = voterId;
+        document.getElementById('voter-survey-name').textContent = currentLang === 'es'
+          ? '¿Qué le preocupa más a ' + name + '?'
+          : 'What does ' + name + ' care about most?';
+        document.getElementById('voter-survey').style.display = 'block';
+      }, 1800);
+    }
+  } catch (e) {
+    document.getElementById('result-area').style.display = 'none';
+    document.getElementById('entry-form').style.display = 'block';
+  }
+}
 
 function toggleVoterIssue(el, issue) {
   if (el.classList.contains('disabled')) return;
@@ -164,11 +294,9 @@ function toggleVoterIssue(el, issue) {
     }
   });
   const hint = document.getElementById('voter-survey-hint');
-  hint.textContent = voterIssues.length === 0
-    ? 'Select up to 3 issues'
-    : voterIssues.length === 3
-      ? '3 selected — maximum reached'
-      : voterIssues.length + ' selected';
+  hint.textContent = currentLang === 'es'
+    ? (voterIssues.length === 0 ? 'Selecciona hasta 3 temas' : voterIssues.length === 3 ? '3 seleccionados — máximo' : voterIssues.length + ' seleccionados')
+    : (voterIssues.length === 0 ? 'Select up to 3 issues' : voterIssues.length === 3 ? '3 selected — maximum reached' : voterIssues.length + ' selected');
   hint.style.color = voterIssues.length === 3 ? '#1a4fa0' : '#888';
 }
 
@@ -178,170 +306,26 @@ async function submitVoterSurvey() {
       await fetch('/survey/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          issues: voterIssues,
-          survey_type: 'voter',
-          voter_id: currentVoterId
-        })
+        body: JSON.stringify({ issues: voterIssues, survey_type: 'voter', voter_id: currentVoterId })
       });
     } catch(e) {}
   }
   resetForNextVoter();
 }
 
-function skipVoterSurvey() {
-  resetForNextVoter();
-}
+function skipVoterSurvey() { resetForNextVoter(); }
 
 function resetForNextVoter() {
-  // Reset survey
   voterIssues = [];
   currentVoterId = null;
-  document.querySelectorAll('#voter-issue-grid .issue-btn').forEach(btn => {
-    btn.classList.remove('selected', 'disabled');
-  });
-  document.getElementById('voter-survey-hint').textContent = 'Select up to 3 issues';
+  document.querySelectorAll('#voter-issue-grid .issue-btn').forEach(btn => btn.classList.remove('selected', 'disabled'));
+  document.getElementById('voter-survey-hint').textContent = currentLang === 'es' ? 'Selecciona hasta 3 temas' : 'Select up to 3 issues';
   document.getElementById('voter-survey-hint').style.color = '#888';
-  // Hide survey, show entry form
   document.getElementById('voter-survey').style.display = 'none';
   document.getElementById('success-area').style.display = 'none';
   document.getElementById('entry-form').style.display = 'block';
   ['fname','lname','street','city'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('fname').focus();
-}
-
-// Load counter and personal stats on page load
-async function loadStats() {
-  try {
-    const [countRes, meRes] = await Promise.all([
-      fetch('/stats/count'),
-      fetch('/stats/me')
-    ]);
-    const countData = await countRes.json();
-    document.getElementById('counter').textContent = countData.total.toLocaleString();
-
-    if (meRes.ok) {
-      const meData = await meRes.json();
-      document.getElementById('my-count').textContent = meData.voters_added.toLocaleString();
-      document.getElementById('network-count').textContent = meData.network_size.toLocaleString();
-    }
-  } catch (e) {
-    document.getElementById('counter').textContent = '213,625';
-  }
-}
-
-async function doLookup() {
-  const f = document.getElementById('fname').value.trim();
-  const l = document.getElementById('lname').value.trim();
-  const errorEl = document.getElementById('lookup-error');
-  const btn = document.getElementById('lookup-btn');
-
-  if (!f || !l) {
-    document.getElementById('fname').style.borderColor = f ? '' : '#c0392b';
-    document.getElementById('lname').style.borderColor = l ? '' : '#c0392b';
-    return;
-  }
-  document.getElementById('fname').style.borderColor = '';
-  document.getElementById('lname').style.borderColor = '';
-  errorEl.style.display = 'none';
-
-  const street = document.getElementById('street').value.trim();
-  const city = document.getElementById('city').value.trim();
-
-  btn.textContent = 'Searching...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('/voters/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ first_name: f, last_name: l, street_name: street, city: city })
-    });
-    const data = await res.json();
-
-    if (!data.results || data.results.length === 0) {
-      errorEl.textContent = 'No match found. Check the spelling or try adding a street name or city.';
-      errorEl.style.display = 'block';
-      return;
-    }
-
-    // Build result cards
-    const container = document.getElementById('result-cards');
-    container.innerHTML = '';
-    data.results.forEach(voter => {
-      const addr = [voter.house_number, voter.dir_prefix, voter.street_name, voter.street_type]
-        .filter(Boolean).join(' ');
-      const isDem = voter.primary_2026 === 'ED' || voter.primary_2026 === 'XD';
-      const partyColor = isDem ? '#eef3fb' : '#f5f5f0';
-      const partyText = isDem ? '#1a4fa0' : '#888';
-      const partyLabel = isDem ? 'Dem Primary' : (voter.primary_2026 || 'No primary');
-      const card = document.createElement('div');
-      card.className = 'voter-card' + (voter.already_committed ? ' already-committed' : '');
-      card.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div>
-            <div style="font-weight:500;font-size:15px;margin-bottom:2px;">${voter.first_name} ${voter.last_name}</div>
-            <div style="font-size:13px;color:#888;">${addr}, ${voter.city}</div>
-            <div style="font-size:12px;color:#888;margin-top:1px;">${voter.zipcode || ''}</div>
-            ${voter.already_committed ? '<div style="font-size:12px;color:#1a4fa0;font-weight:500;margin-top:4px;">✓ Already committed</div>' : ''}
-          </div>
-          <span class="tag" style="background:${partyColor};color:${partyText};">${partyLabel}</span>
-        </div>`;
-      if (!voter.already_committed) {
-        card.onclick = () => addVoter(voter.voter_id, voter.first_name + ' ' + voter.last_name, addr + ', ' + voter.city);
-      }
-      container.appendChild(card);
-    });
-
-    document.getElementById('result-label').textContent = (street || city)
-      ? "Here's who we found — is this them?"
-      : "We found a few matches — tap the right one:";
-    document.getElementById('entry-form').style.display = 'none';
-    document.getElementById('result-area').style.display = 'block';
-
-  } catch (e) {
-    errorEl.textContent = 'Connection error. Please try again.';
-    errorEl.style.display = 'block';
-  } finally {
-    btn.textContent = 'Look them up →';
-    btn.disabled = false;
-  }
-}
-
-async function addVoter(voterId, name, addr) {
-  try {
-    const res = await fetch('/voters/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ voter_id: voterId })
-    });
-    const data = await res.json();
-
-    document.getElementById('result-area').style.display = 'none';
-
-    if (data.already_committed) {
-      document.getElementById('already-name').textContent = name;
-      document.getElementById('already-area').style.display = 'block';
-    } else {
-      // Update counter and personal count
-      document.getElementById('counter').textContent = data.total.toLocaleString();
-      const myCount = parseInt(document.getElementById('my-count').textContent.replace(/,/g,'')) + 1;
-      document.getElementById('my-count').textContent = myCount.toLocaleString();
-      document.getElementById('success-name').textContent = name;
-      document.getElementById('success-addr').textContent = addr;
-      document.getElementById('success-area').style.display = 'block';
-      // Show voter survey after brief pause
-      setTimeout(() => {
-        document.getElementById('success-area').style.display = 'none';
-        currentVoterId = voterId;
-        document.getElementById('voter-survey-name').textContent = "What does " + name + " care about most?";
-        document.getElementById('voter-survey').style.display = 'block';
-      }, 1800);
-    }
-  } catch (e) {
-    document.getElementById('result-area').style.display = 'none';
-    document.getElementById('entry-form').style.display = 'block';
-  }
 }
 
 function resetForm() {
@@ -357,7 +341,11 @@ function addAnother() {
   document.getElementById('fname').focus();
 }
 
-// Load stats on page load and poll counter every 30s
+function detectLang() {
+  const lang = navigator.language || navigator.userLanguage || 'en';
+  if (lang.toLowerCase().startsWith('es')) setLang('es');
+}
+
 loadStats();
 setInterval(async () => {
   try {
@@ -366,6 +354,7 @@ setInterval(async () => {
     document.getElementById('counter').textContent = data.total.toLocaleString();
   } catch(e) {}
 }, 30000);
+detectLang();
 </script>
 </body>
 </html>

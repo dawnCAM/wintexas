@@ -7,7 +7,7 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
-.btn-big { background: #1a4fa0; color: #fff; border: none; border-radius: 8px; padding: 16px 28px; font-size: 17px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; margin-top: 0; }
+.btn-big { background: #1a4fa0; color: #fff; border: none; border-radius: 8px; padding: 16px 28px; font-size: 17px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; }
 .btn-big:hover { background: #163d80; }
 .btn-ghost { background: transparent; color: #1a4fa0; border: 1.5px solid #1a4fa0; border-radius: 8px; padding: 13px 28px; font-size: 15px; font-weight: 500; cursor: pointer; width: 100%; transition: background .15s; margin-top: 10px; }
 .btn-ghost:hover { background: #eef3fb; }
@@ -17,65 +17,74 @@ body { background: #f8f8f6; color: #1a1a18; padding: 16px; }
 input { border: 0.5px solid #ccc; border-radius: 8px; padding: 10px 12px; width: 100%; font-size: 16px; }
 input:focus { outline: none; border-color: #1a4fa0; }
 .error-msg { color: #c0392b; font-size: 12px; margin-top: 6px; display: none; }
+.lang-toggle { display: flex; gap: 0; border: 1.5px solid #1a4fa0; border-radius: 20px; overflow: hidden; width: fit-content; margin: 0 auto 20px; }
+.lang-btn { padding: 5px 16px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: #1a4fa0; transition: all .15s; }
+.lang-btn.active { background: #1a4fa0; color: #fff; }
 </style>
 </head>
 <body>
 <div style="max-width: 440px; margin: 0 auto; padding: 1rem 0;">
 
+<!-- Language toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+  <button class="lang-btn" id="btn-es" onclick="setLang('es')">Español</button>
+</div>
+
 <!-- SCREEN 1: Hook -->
 <div id="s1" class="screen active">
   <div style="text-align: center; padding: 8px 0 20px;">
     <div style="font-size: 13px; font-weight: 500; color: #1a4fa0; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">WinTexas.US</div>
-    <div style="font-size: 28px; font-weight: 500; line-height: 1.25; margin-bottom: 12px;">Texas can go Blue<br>in November.</div>
-    <div style="font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 20px;">It starts with you — and 3 people you know.</div>
+    <div style="font-size: 28px; font-weight: 500; line-height: 1.25; margin-bottom: 12px;" data-en="Texas can go Blue<br>in November." data-es="Texas puede votar Azul<br>en Noviembre.">Texas can go Blue<br>in November.</div>
+    <div style="font-size: 15px; color: #666; line-height: 1.6; margin-bottom: 20px;" data-en="It starts with you — and 3 people you know." data-es="Empieza contigo — y 3 personas que conoces.">It starts with you — and 3 people you know.</div>
 
     <div style="background: #eef3fb; border: 0.5px solid #a3bde8; border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;">
-      <div style="font-size: 12px; color: #1a4fa0; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">Texans already committed</div>
+      <div style="font-size: 12px; color: #1a4fa0; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;" data-en="Texans already committed" data-es="Tejanos ya comprometidos">Texans already committed</div>
       <div style="font-size: 44px; font-weight: 500; color: #1a4fa0; letter-spacing: -1px; font-variant-numeric: tabular-nums;" id="big-count">Loading...</div>
-      <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;">↑ more joining every hour</div>
+      <div style="font-size: 12px; color: #2d60b8; margin-top: 2px;" data-en="↑ more joining every hour" data-es="↑ más personas cada hora">↑ more joining every hour</div>
     </div>
 
     <div style="text-align: left; margin-bottom: 24px;">
-      <div style="font-size: 13px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;">Here's how it works</div>
+      <div style="font-size: 13px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;" data-en="Here's how it works" data-es="Así funciona">Here's how it works</div>
       <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
         <div class="step-num">1</div>
-        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;">Sign up in 30 seconds — we verify you're a registered Texas voter</div>
+        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;" data-en="Sign up in 30 seconds — we verify you're a registered Texas voter" data-es="Regístrate en 30 segundos — verificamos que eres votante registrado en Texas">Sign up in 30 seconds — we verify you're a registered Texas voter</div>
       </div>
       <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
         <div class="step-num">2</div>
-        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;">Talk to people you know. Get them to commit to vote the Blue Ballot on Nov. 3</div>
+        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;" data-en="Talk to people you know. Get them to commit to vote the Blue Ballot on Nov. 3" data-es="Habla con personas que conoces. Pídeles que se comprometan a votar el Boleto Azul el 3 de Nov.">Talk to people you know. Get them to commit to vote the Blue Ballot on Nov. 3</div>
       </div>
       <div style="display: flex; gap: 12px; align-items: flex-start;">
         <div class="step-num">3</div>
-        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;">Enter their names here. Watch the count grow. They do the same with their people</div>
+        <div style="font-size: 14px; line-height: 1.5; padding-top: 4px;" data-en="Enter their names here. Watch the count grow. They do the same with their people" data-es="Ingresa sus nombres aquí. Mira crecer el contador. Ellos hacen lo mismo con sus conocidos">Enter their names here. Watch the count grow. They do the same with their people</div>
       </div>
     </div>
 
     <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; text-align: left;">
-      <div style="font-size: 13px; color: #666; line-height: 1.6;">If every person reaches just <strong style="color: #1a1a18;">3 people</strong>, and those 3 reach 3 more — <strong style="color: #1a4fa0;">10 levels deep adds 88,000 voters.</strong> You are level one.</div>
+      <div style="font-size: 13px; color: #666; line-height: 1.6;" data-en="If every person reaches just <strong style='color:#1a1a18;'>3 people</strong>, and those 3 reach 3 more — <strong style='color:#1a4fa0;'>10 levels deep adds 88,000 voters.</strong> You are level one." data-es="Si cada persona llega a solo <strong style='color:#1a1a18;'>3 personas</strong>, y esas 3 llegan a 3 más — <strong style='color:#1a4fa0;'>10 niveles suman 88,000 votantes.</strong> Tú eres el nivel uno.">If every person reaches just <strong style="color:#1a1a18;">3 people</strong>, and those 3 reach 3 more — <strong style="color:#1a4fa0;">10 levels deep adds 88,000 voters.</strong> You are level one.</div>
     </div>
 
-    <button class="btn-big" onclick="showScreen('s2')">I'm in — sign me up →</button>
-    <button class="btn-ghost" onclick="showScreen('s2')">I already recruit — log in</button>
+    <button class="btn-big" onclick="showScreen('s2')" data-en="I'm in — sign me up →" data-es="Me apunto — regístrame →">I'm in — sign me up →</button>
+    <button class="btn-ghost" onclick="showScreen('s2')" data-en="I already recruit — log in" data-es="Ya soy reclutador — iniciar sesión">I already recruit — log in</button>
   </div>
 </div>
 
 <!-- SCREEN 2: Magic link -->
 <div id="s2" class="screen">
   <div style="margin-bottom: 20px;">
-    <button onclick="showScreen('s1')" style="background:none; border:none; color: #888; font-size: 13px; cursor:pointer; padding: 0; margin-bottom: 16px;">← Back</button>
-    <div style="font-size: 22px; font-weight: 500; margin-bottom: 8px;">Let's get you set up</div>
-    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;">We'll send you a magic link — no password needed. Tap it and you're in.</div>
+    <button onclick="showScreen('s1')" style="background:none; border:none; color: #888; font-size: 13px; cursor:pointer; padding: 0; margin-bottom: 16px;" data-en="← Back" data-es="← Atrás">← Back</button>
+    <div style="font-size: 22px; font-weight: 500; margin-bottom: 8px;" data-en="Let's get you set up" data-es="Vamos a configurar tu cuenta">Let's get you set up</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px;" data-en="We'll send you a magic link — no password needed. Tap it and you're in." data-es="Te enviaremos un enlace mágico — sin contraseña. Tócalo y listo.">We'll send you a magic link — no password needed. Tap it and you're in.</div>
 
     <div style="margin-bottom: 10px;">
-      <div style="font-size: 12px; color: #888; margin-bottom: 5px;">Your email address</div>
-      <input type="text" id="contact-input" placeholder="Email address" />
-      <div class="error-msg" id="contact-error">Please enter your email address</div>
+      <div style="font-size: 12px; color: #888; margin-bottom: 5px;" data-en="Your email address" data-es="Tu correo electrónico">Your email address</div>
+      <input type="text" id="contact-input" data-placeholder-en="Email address" data-placeholder-es="Correo electrónico" placeholder="Email address" />
+      <div class="error-msg" id="contact-error" data-en="Please enter your email address" data-es="Por favor ingresa tu correo electrónico">Please enter your email address</div>
     </div>
-    <div style="font-size: 11px; color: #888; margin-bottom: 20px; line-height: 1.6;">We'll send a magic link to your email — no password needed. We never share your info.</div>
+    <div style="font-size: 11px; color: #888; margin-bottom: 20px; line-height: 1.6;" data-en="We'll send a magic link to your email — no password needed. We never share your info." data-es="Te enviaremos un enlace a tu correo — sin contraseña. Nunca compartimos tu información.">We'll send a magic link to your email — no password needed. We never share your info.</div>
 
-    <button class="btn-big" id="send-btn" onclick="sendMagicLink()">Send my link →</button>
-    <div style="text-align: center; margin-top: 14px; font-size: 12px; color: #888;">Already have a link? Check your email.</div>
+    <button class="btn-big" id="send-btn" onclick="sendMagicLink()" data-en="Send my link →" data-es="Enviar mi enlace →">Send my link →</button>
+    <div style="text-align: center; margin-top: 14px; font-size: 12px; color: #888;" data-en="Already have a link? Check your email." data-es="¿Ya tienes un enlace? Revisa tu correo.">Already have a link? Check your email.</div>
   </div>
 </div>
 
@@ -83,25 +92,46 @@ input:focus { outline: none; border-color: #1a4fa0; }
 <div id="s3" class="screen">
   <div style="text-align: center; padding: 24px 0;">
     <div style="font-size: 40px; margin-bottom: 16px;">📧</div>
-    <div style="font-size: 20px; font-weight: 500; margin-bottom: 10px;">Check your email</div>
-    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px;">We just sent a magic link to your email. Click it to verify your identity and start adding committed voters.</div>
+    <div style="font-size: 20px; font-weight: 500; margin-bottom: 10px;" data-en="Check your email" data-es="Revisa tu correo">Check your email</div>
+    <div style="font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 28px;" data-en="We just sent a magic link to your email. Click it to verify your identity and start adding committed voters." data-es="Te enviamos un enlace mágico a tu correo. Haz clic para verificar tu identidad y comenzar a agregar votantes comprometidos.">We just sent a magic link to your email. Click it to verify your identity and start adding committed voters.</div>
     <div style="background: #f0f0ec; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; font-size: 13px; color: #666; line-height: 1.6; text-align: left;">
-      <strong>What happens next:</strong><br>
-      Tap the link → we match you to the voter file → you're ready to add committed voters.
+      <strong data-en="What happens next:" data-es="¿Qué sigue?">What happens next:</strong><br>
+      <span data-en="Click the link → we match you to the voter file → you're ready to add committed voters." data-es="Haz clic en el enlace → te verificamos en el padrón electoral → estás listo para agregar votantes comprometidos.">Click the link → we match you to the voter file → you're ready to add committed voters.</span>
     </div>
-    <div style="font-size: 13px; color: #666;">Didn't get it? <span style="color: #1a4fa0; cursor: pointer; text-decoration: underline;" onclick="showScreen('s2')">Try again</span></div>
+    <div style="font-size: 13px; color: #666;">
+      <span data-en="Didn't get it?" data-es="¿No lo recibiste?">Didn't get it?</span> <span style="color: #1a4fa0; cursor: pointer; text-decoration: underline;" onclick="showScreen('s2')" data-en="Try again" data-es="Intentar de nuevo">Try again</span>
+    </div>
   </div>
 </div>
 
 </div>
 
 <script>
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.documentElement.lang = lang;
+
+  // Update all data-en / data-es elements
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-' + lang);
+  });
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// Load real counter from API
 async function loadCount() {
   try {
     const res = await fetch('/stats/count');
@@ -114,7 +144,6 @@ async function loadCount() {
   }
 }
 
-// Send magic link via real API
 async function sendMagicLink() {
   const contact = document.getElementById('contact-input').value.trim();
   const errorEl = document.getElementById('contact-error');
@@ -125,7 +154,7 @@ async function sendMagicLink() {
     return;
   }
   errorEl.style.display = 'none';
-  btn.textContent = 'Sending...';
+  btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Sending...';
   btn.disabled = true;
 
   try {
@@ -134,26 +163,31 @@ async function sendMagicLink() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contact })
     });
-
     if (res.ok) {
       showScreen('s3');
     } else {
       const data = await res.json();
-      errorEl.textContent = data.detail || 'Something went wrong. Please try again.';
+      errorEl.textContent = data.detail || (currentLang === 'es' ? 'Algo salió mal. Intenta de nuevo.' : 'Something went wrong. Please try again.');
       errorEl.style.display = 'block';
     }
   } catch (e) {
-    errorEl.textContent = 'Connection error. Please try again.';
+    errorEl.textContent = currentLang === 'es' ? 'Error de conexión. Intenta de nuevo.' : 'Connection error. Please try again.';
     errorEl.style.display = 'block';
   } finally {
-    btn.textContent = 'Send my link →';
+    btn.textContent = currentLang === 'es' ? 'Enviar mi enlace →' : 'Send my link →';
     btn.disabled = false;
   }
 }
 
-// Load count on page load and poll every 30s
+// Auto-detect browser language
+function detectLang() {
+  const lang = navigator.language || navigator.userLanguage || 'en';
+  if (lang.toLowerCase().startsWith('es')) setLang('es');
+}
+
 loadCount();
 setInterval(loadCount, 30000);
+detectLang();
 </script>
 </body>
 </html>
