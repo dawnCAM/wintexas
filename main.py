@@ -558,6 +558,7 @@ async def stats_me(session: Optional[str] = Cookie(None)):
 @app.on_event("startup")
 async def startup():
     """Add any missing constraints or indexes on startup."""
+    conn = None
     try:
         conn = get_conn()
         with conn.cursor() as cur:
@@ -569,4 +570,5 @@ async def startup():
     except Exception:
         pass  # column already exists
     finally:
-        conn.close()
+        if conn:
+            conn.close()
